@@ -15,7 +15,7 @@ def pull_account_data():
     
     PROJECT_ID = config["PROJECT_ID"]
     DATASET_ID = config["DATASET_ID"]
-    TABLE_ID = config["TABLE_ID"]
+    TABLE_ID = config["ACCOUNT_TABLE_ID"]
 
     # Build the table reference
     table_ref = f"{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}"
