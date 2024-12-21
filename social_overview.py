@@ -87,11 +87,18 @@ def get_daily_post_counts(post_data, account_data):
 
 # Main function to display data and visuals
 def main():
+        
 
     # Pull data using the function
     account_data = pull_dataframes(ACCOUNT_TABLE_ID)
     post_data = pull_dataframes(POST_TABLE_ID)
     account_data = get_daily_post_counts(post_data, account_data)
+
+    with st.expander("Account Data"):
+        st.write(account_data)
+
+    with st.expander("Post Data"):
+        post_data
 
     # Create layout with two columns
     col1, col2 = st.columns(2)
