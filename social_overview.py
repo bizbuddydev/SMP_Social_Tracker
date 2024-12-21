@@ -20,19 +20,25 @@ PROJECT_ID = config["PROJECT_ID"]
 DATASET_ID = config["DATASET_ID"]
 TABLE_ID = config["ACCOUNT_TABLE_ID"]
 
+# Load credentials and project ID from st.secrets
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"]
+)
+
+# Initialize BigQuery client
+client = bigquery.Client()
+
+
 # Function to pull data from BigQuery
 def pull_account_data():
-
+    
     # Build the table reference
     table_ref = f"{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}"
-    
-    # Initialize BigQuery client
-    client = bigquery.Client()
+
+    st.write(table_ref)
 
     # Query to fetch all data from the table
     query = f"SELECT * FROM `{table_ref}`"
-
-    st.write(table_ref)
     
     try:
         # Execute the query
