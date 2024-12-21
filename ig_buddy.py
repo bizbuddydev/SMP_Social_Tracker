@@ -5,7 +5,7 @@ import pandas as pd
 from datetime import date, timedelta
 import json
 
-st.set_page_config(page_title="Social Overview", layout="wide")
+st.set_page_config(page_title="Post Analyzer", layout="wide")
 
 # Load the configuration file
 def load_config(file_path="config.json"):
@@ -84,7 +84,7 @@ def main():
     """, unsafe_allow_html=True)
     
     # Centered title
-    st.markdown('<div class="centered-title">Social Buddy - Instagram</div>', unsafe_allow_html=True)
+    st.markdown('<div class="centered-title">Social Buddy - Post Analyzer</div>', unsafe_allow_html=True)
     
     # Centered header
     st.markdown(f'<div class="centered-header">{account_name}</div>', unsafe_allow_html=True)
