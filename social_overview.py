@@ -54,7 +54,7 @@ def main():
     # Pull data using the function
     data = pull_account_data()
 
-    st.sunheader("Data")
+    st.subheader("Data")
 
     st.write(data)
 
