@@ -72,8 +72,8 @@ def get_daily_post_counts(post_data, account_data):
         post_count = post_data[(post_data['created_time'] >= day_start) & 
                                (post_data['created_time'] <= day_end)].shape[0]
         daily_counts.append({
-            'Date': day.date(),
-            'Post Count': post_count
+            'date': day.date(),
+            'post_count': post_count
         })
 
     # Convert to DataFrame
