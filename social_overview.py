@@ -18,7 +18,8 @@ config = load_config()
 # Set env variables
 PROJECT_ID = config["PROJECT_ID"]
 DATASET_ID = config["DATASET_ID"]
-TABLE_ID = config["ACCOUNT_TABLE_ID"]
+ACCOUNT_TABLE_ID = config["ACCOUNT_TABLE_ID"]
+POST_TABLE_ID = config["POST_TABLE_ID"]
 
 # Load credentials and project ID from st.secrets
 credentials = service_account.Credentials.from_service_account_info(
@@ -32,7 +33,27 @@ client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
 def pull_account_data():
     
     # Build the table reference
-    table_ref = f"{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}"
+    table_ref = f"{PROJECT_ID}.{DATASET_ID}.{ACCOUNT_TABLE_ID}"
+
+    # Query to fetch all data from the table
+    query = f"SELECT * FROM `{table_ref}`"
+    
+    try:
+        # Execute the query
+        query_job = client.query(query)
+        result = query_job.result()
+        # Convert the result to a DataFrame
+        data = result.to_dataframe()
+        return data
+    except Exception as e:
+        st.error(f"Error fetching data: {e}")
+        return None
+
+# Function to pull data from BigQuery
+def pull_post_data():
+    
+    # Build the table reference
+    table_ref = f"{PROJECT_ID}.{DATASET_ID}.{POST_TABLE_ID}"
 
     # Query to fetch all data from the table
     query = f"SELECT * FROM `{table_ref}`"
@@ -52,12 +73,14 @@ def pull_account_data():
 def main():
 
     # Pull data using the function
-    data = pull_account_data()
+    account_data = pull_account_data()
+    post_data = pull_post_data()
 
-    st.subheader("Data")
+    st.subheader("Account Data")
+    st.write(account_data)
 
-    st.write(data)
-
+    st.subheader("Post Data")
+    st.write(post_data)
 
 
 # Run the app
