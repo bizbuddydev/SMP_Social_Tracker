@@ -106,12 +106,15 @@ def main():
         post_data
 
     # Create layout with two columns
-    col1, col2 = st.columns(2)
+    col_left, col_right = st.columns(2)
 
-    with col1:
+    with col_left:
+
+        col1, col2, col3, col4 = st.columns(4)        
+        
         # Calculate metrics
         if account_data is not None and not account_data.empty:
-            total_followers = account_data.iloc[-1]['follower_count']  # Most recent day
+            total_followers = account_data.iloc[-1]['total_followers']  # Most recent day
         else:
             total_followers = 0
 
@@ -122,10 +125,15 @@ def main():
         avg_likes = post_data['like_count'].mean() if post_data is not None and not post_data.empty else 0
 
         # Display metrics
-        st.metric(label="Total Followers", value=f"{total_followers:,}")
-        st.metric(label="Total Posts", value=f"{total_posts:,}")
-        st.metric(label="Average Reach", value=f"{avg_reach:,.0f}")
-        st.metric(label="Average Likes", value=f"{avg_likes:,.0f}")
+        with col1:
+            st.metric(label="Total Followers", value=f"{total_followers:,}")
+        with col2:
+            st.metric(label="Total Posts", value=f"{total_posts:,}")
+        with col3:
+            st.metric(label="Average Reach", value=f"{avg_reach:,.0f}")
+        with col4:
+            st.metric(label="Average Likes", value=f"{avg_likes:,.0f}")
+
 
     with col2:
         # Placeholder for other visuals or information
