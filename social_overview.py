@@ -99,7 +99,7 @@ def main():
     with col1:
         # Calculate metrics
         if account_data is not None and not account_data.empty:
-            total_followers = account_data.iloc[-1]['followers']  # Most recent day
+            total_followers = account_data.iloc[-1]['follower_count']  # Most recent day
         else:
             total_followers = 0
 
