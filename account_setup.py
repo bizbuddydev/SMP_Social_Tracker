@@ -1,13 +1,13 @@
 import streamlit as st
 import openai
 
-# Initialize ChatGPT credentials
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+# Initialize the OpenAI client
+client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
 # Function to call ChatGPT
 def generate_strategy(user_input):
     try:
-        response = openai.ChatCompletion.create(
+        response = client.Completion.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a social media strategist specializing in Instagram."},
