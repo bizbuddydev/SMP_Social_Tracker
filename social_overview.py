@@ -114,7 +114,7 @@ def main():
 
         avg_reach = post_data['reach'].mean() if post_data is not None and not post_data.empty else 0
 
-        avg_likes = post_data['likes'].mean() if post_data is not None and not post_data.empty else 0
+        avg_likes = post_data['like_count'].mean() if post_data is not None and not post_data.empty else 0
 
         # Display metrics
         st.metric(label="Total Followers", value=f"{total_followers:,}")
