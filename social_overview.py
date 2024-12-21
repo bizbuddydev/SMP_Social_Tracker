@@ -7,15 +7,21 @@ import json
 
 st.set_page_config(page_title="Social Overview", layout="wide")
 
+# Load the configuration file
+def load_config(file_path="config.json"):
+    with open(file_path, "r") as f:
+        return json.load(f)
+
+# Load the account configuration
+config = load_config()
+
+# Set env variables
+PROJECT_ID = config["PROJECT_ID"]
+DATASET_ID = config["DATASET_ID"]
+TABLE_ID = config["ACCOUNT_TABLE_ID"]
+
 # Function to pull data from BigQuery
 def pull_account_data():
-    # Load configuration details from config.json
-    with open("config.json", "r") as file:
-        config = json.load(file)
-    
-    PROJECT_ID = config["PROJECT_ID"]
-    DATASET_ID = config["DATASET_ID"]
-    TABLE_ID = config["ACCOUNT_TABLE_ID"]
 
     # Build the table reference
     table_ref = f"{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}"
