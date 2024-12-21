@@ -15,6 +15,8 @@ def load_config(file_path="config.json"):
 # Load the account configuration
 config = load_config()
 
+st.write("config loaded")
+
 # Set env variables
 PROJECT_ID = config["PROJECT_ID"]
 DATASET_ID = config["DATASET_ID"]
@@ -28,6 +30,7 @@ credentials = service_account.Credentials.from_service_account_info(
 # Initialize BigQuery client
 client = bigquery.Client()
 
+st.write("client loaded")
 
 # Function to pull data from BigQuery
 def pull_account_data():
