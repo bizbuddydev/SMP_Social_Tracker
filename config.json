@@ -1,5 +1,6 @@
 {
   "account_name": "Sterling Mental Performance",
-  "datasetid": "ig_data",
-  "tableid": "smp_postdata"
+  "PROJECT_ID" : "bizbuddydemo-v1",
+  "DATASET_ID": "ig_data",
+  "TABLE_ID": "smp_postdata"
 }
