@@ -25,6 +25,8 @@ def pull_account_data():
 
     # Query to fetch all data from the table
     query = f"SELECT * FROM `{table_ref}`"
+
+    st.write(table_ref)
     
     try:
         # Execute the query
