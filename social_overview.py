@@ -5,6 +5,10 @@ import pandas as pd
 from datetime import datetime, date, timedelta
 import json
 
+#For Viz
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 st.set_page_config(page_title="Social Overview", layout="wide")
 
 # Load the configuration file
