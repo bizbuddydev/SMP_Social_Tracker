@@ -32,7 +32,7 @@ credentials = service_account.Credentials.from_service_account_info(
 st.write("secrets loaded")
 
 # Initialize BigQuery client
-client = bigquery.Client()
+client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
 
 st.write("client loaded")
 
