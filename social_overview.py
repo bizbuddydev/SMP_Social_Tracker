@@ -22,10 +22,14 @@ PROJECT_ID = config["PROJECT_ID"]
 DATASET_ID = config["DATASET_ID"]
 TABLE_ID = config["ACCOUNT_TABLE_ID"]
 
+st.write("variables loaded")
+
 # Load credentials and project ID from st.secrets
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"]
 )
+
+st.write("secrets loaded")
 
 # Initialize BigQuery client
 client = bigquery.Client()
