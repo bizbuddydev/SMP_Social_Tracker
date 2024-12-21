@@ -52,8 +52,8 @@ def pull_dataframes(table_id):
 
 def get_daily_post_counts(post_data, account_data):
     # Ensure created_time is in datetime format
-    post_data['created_time'] = pd.to_datetime(post_data['created_time'])
-    account_data['date'] = pd.to_datetime(account_data['Date']).dt.date
+    post_data['date'] = pd.to_datetime(post_data['created_time'])
+    account_data['date'] = pd.to_datetime(account_data['date']).dt.date
 
     # Generate the last 30 days as a date range
     today = datetime.today()
@@ -80,10 +80,10 @@ def get_daily_post_counts(post_data, account_data):
     daily_post_counts_df = pd.DataFrame(daily_counts)
 
     # Merge with account_data on the Date column
-    merged_df = pd.merge(daily_post_counts_df, account_data, how="left", on="Date")
+    merged_df = pd.merge(daily_post_counts_df, account_data, how="left", on="date")
 
     # Only keep the Date column in the merged DataFrame
-    merged_df = merged_df[['Date', 'Post Count']]
+    merged_df = merged_df[['date', 'post_count']]
 
     return merged_df
 
