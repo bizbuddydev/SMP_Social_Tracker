@@ -56,8 +56,8 @@ def get_daily_post_counts(post_data, account_data):
     account_data['date'] = pd.to_datetime(account_data['date']).dt.date
 
     # Generate the last 30 days as a date range
-    today = datetime.today()
-    date_range = [today - timedelta(days=i) for i in range(30)]
+    today = datetime.today() - 1
+    date_range = [today - timedelta(days=i) for i in range(31)]
     date_range = sorted(date_range)  # Ensure dates are in ascending order
 
     # Initialize an empty list to store daily counts
