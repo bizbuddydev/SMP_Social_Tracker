@@ -172,7 +172,17 @@ def main():
 
     with col_right:
         # Placeholder for other visuals or information
-        st.write("Other visualizations or information can go here.")
+        st.header("AI Analysis of recent performance")
+        st.write("- Strategic Recommendations")
+        st.write("- Upcoming Posts")
+        st.write("")
+
+
+        st.header("Demographic Breakdown")
+        st.write("")
+        
+        st.header("Calendar")
+        st.write("")
 
 
 # Run the app
