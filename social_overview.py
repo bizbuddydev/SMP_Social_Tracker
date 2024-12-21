@@ -30,10 +30,10 @@ credentials = service_account.Credentials.from_service_account_info(
 client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
 
 # Function to pull data from BigQuery
-def pull_account_data():
+def pull_dataframes(table_id):
     
     # Build the table reference
-    table_ref = f"{PROJECT_ID}.{DATASET_ID}.{ACCOUNT_TABLE_ID}"
+    table_ref = f"{PROJECT_ID}.{DATASET_ID}.{table_id}"
 
     # Query to fetch all data from the table
     query = f"SELECT * FROM `{table_ref}`"
@@ -49,38 +49,59 @@ def pull_account_data():
         st.error(f"Error fetching data: {e}")
         return None
 
-# Function to pull data from BigQuery
-def pull_post_data():
-    
-    # Build the table reference
-    table_ref = f"{PROJECT_ID}.{DATASET_ID}.{POST_TABLE_ID}"
 
-    # Query to fetch all data from the table
-    query = f"SELECT * FROM `{table_ref}`"
-    
-    try:
-        # Execute the query
-        query_job = client.query(query)
-        result = query_job.result()
-        # Convert the result to a DataFrame
-        data = result.to_dataframe()
-        return data
-    except Exception as e:
-        st.error(f"Error fetching data: {e}")
-        return None
+def get_daily_post_counts(post_data, account_data):
+    # Ensure created_time is in datetime format
+    post_data['created_time'] = pd.to_datetime(post_data['created_time'])
+    account_data['Date'] = pd.to_datetime(account_data['Date']).dt.date
+
+    # Generate the last 30 days as a date range
+    today = datetime.today()
+    date_range = [today - timedelta(days=i) for i in range(30)]
+    date_range = sorted(date_range)  # Ensure dates are in ascending order
+
+    # Initialize an empty list to store daily counts
+    daily_counts = []
+
+    # Count posts for each day
+    for day in date_range:
+        # Filter posts matching the current day
+        day_start = day.replace(hour=0, minute=0, second=0, microsecond=0)
+        day_end = day.replace(hour=23, minute=59, second=59, microsecond=999999)
+
+        post_count = post_data[(post_data['created_time'] >= day_start) & 
+                               (post_data['created_time'] <= day_end)].shape[0]
+        daily_counts.append({
+            'Date': day.date(),
+            'Post Count': post_count
+        })
+
+    # Convert to DataFrame
+    daily_post_counts_df = pd.DataFrame(daily_counts)
+
+    # Merge with account_data on the Date column
+    merged_df = pd.merge(daily_post_counts_df, account_data, how="left", on="Date")
+
+    # Only keep the Date column in the merged DataFrame
+    merged_df = merged_df[['Date', 'Post Count']]
+
+    return merged_df
+
 
 # Main function to display data and visuals
 def main():
 
     # Pull data using the function
-    account_data = pull_account_data()
-    post_data = pull_post_data()
+    account_data = pull_dataframes(ACCOUNT_TABLE_ID)
+    post_data = pull_dataframes(POST_TABLE_ID)
+    account_data = get_daily_post_counts(post_data, account_data)
 
     st.subheader("Account Data")
     st.write(account_data)
 
     st.subheader("Post Data")
     st.write(post_data)
+
 
 
 # Run the app
