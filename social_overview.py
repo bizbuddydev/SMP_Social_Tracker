@@ -114,7 +114,8 @@ def main():
 
     with col_left:
 
-        col1, col2, col3, col4 = st.columns(4)        
+        # Columns for scorecards
+        col1, col2, col3, col4 = st.columns(4) 
         
         # Calculate metrics
         if account_data is not None and not account_data.empty:
@@ -123,9 +124,7 @@ def main():
             total_followers = 0
 
         total_posts = len(post_data) if post_data is not None else 0
-
         avg_reach = post_data['reach'].mean() if post_data is not None and not post_data.empty else 0
-
         avg_likes = post_data['like_count'].mean() if post_data is not None and not post_data.empty else 0
 
         # Display metrics
@@ -137,6 +136,22 @@ def main():
             st.metric(label="Average Reach", value=f"{avg_reach:,.0f}")
         with col4:
             st.metric(label="Average Likes", value=f"{avg_likes:,.0f}")
+
+        # Add dynamic line series 
+        if account_data is not None and not account_data.empty:
+        account_data['Date'] = pd.to_datetime(account_data['Date'])
+        account_data = account_data.sort_values(by='Date', ascending=True)
+
+        # Create the line plot
+        fig, ax = plt.subplots(figsize=(10, 6))
+        sns.lineplot(data=account_data, x='Date', y='total_followers', ax=ax)
+        ax.set_title('Total Followers Over Time', fontsize=16)
+        ax.set_xlabel('Date', fontsize=12)
+        ax.set_ylabel('Total Followers', fontsize=12)
+        ax.grid(True)
+
+        # Display the plot in Streamlit
+        st.pyplot(fig)
 
 
     with col2:
