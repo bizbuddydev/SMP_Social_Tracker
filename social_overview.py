@@ -154,7 +154,7 @@ def main():
             st.pyplot(fig)
 
 
-    with col2:
+    with col_right:
         # Placeholder for other visuals or information
         st.write("Other visualizations or information can go here.")
 
