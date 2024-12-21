@@ -99,15 +99,15 @@ def main():
     with col1:
         # Calculate metrics
         if account_data is not None and not account_data.empty:
-            total_followers = account_data.iloc[-1]['Followers']  # Most recent day
+            total_followers = account_data.iloc[-1]['followers']  # Most recent day
         else:
             total_followers = 0
 
         total_posts = len(post_data) if post_data is not None else 0
 
-        avg_reach = post_data['Reach'].mean() if post_data is not None and not post_data.empty else 0
+        avg_reach = post_data['reach'].mean() if post_data is not None and not post_data.empty else 0
 
-        avg_likes = post_data['Likes'].mean() if post_data is not None and not post_data.empty else 0
+        avg_likes = post_data['likes'].mean() if post_data is not None and not post_data.empty else 0
 
         # Display metrics
         st.metric(label="Total Followers", value=f"{total_followers:,}")
