@@ -82,9 +82,6 @@ def get_daily_post_counts(post_data, account_data):
     # Merge with account_data on the Date column
     merged_df = pd.merge(account_data, daily_post_counts_df, how="left", on="date")
 
-    # Only keep the Date column in the merged DataFrame
-    merged_df = merged_df[['date', 'post_count']]
-
     return merged_df
 
 
