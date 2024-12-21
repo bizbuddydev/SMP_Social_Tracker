@@ -161,7 +161,7 @@ def main():
             ax.tick_params(axis='both', which='major', labelsize=10)
         
             # Display the plot in Streamlit
-            st.pyplot(fig))
+            st.pyplot(fig)
 
 
     with col_right:
