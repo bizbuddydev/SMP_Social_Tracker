@@ -91,7 +91,6 @@ def get_daily_post_counts(post_data, account_data):
 
 # Main function to display data and visuals
 def main():
-        
 
     # Pull data using the function
     account_data = pull_dataframes(ACCOUNT_TABLE_ID)
@@ -149,12 +148,12 @@ def main():
             # Create the line plot
             fig, ax = plt.subplots(figsize=(10, 6))
             sns.set_style("whitegrid")  # Set a friendly grid style
-            sns.lineplot(data=account_data, x='date', y='total_followers', ax=ax, color="royalblue", linewidth=2)
+            sns.lineplot(data=account_data, x='date', y=selected_metric, ax=ax, color="royalblue", linewidth=2)
         
             # Customize the plot
-            ax.set_title('Total Followers Over Time', fontsize=16, fontweight='bold')
+            ax.set_title(f'{selected_metric} Over Time', fontsize=16, fontweight='bold')
             ax.set_xlabel('Date', fontsize=12)
-            ax.set_ylabel('Total Followers', fontsize=12)
+            ax.set_ylabel(selected_metric, fontsize=12)
             ax.tick_params(axis='x', rotation=45)  # Rotate x-axis labels
             ax.grid(alpha=0.5)  # Adjust grid transparency
         
