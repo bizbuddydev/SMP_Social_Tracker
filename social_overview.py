@@ -137,21 +137,31 @@ def main():
         with col4:
             st.metric(label="Average Likes", value=f"{avg_likes:,.0f}")
 
-        # Add dynamic line series 
+        # Line chart for total followers over time
         if account_data is not None and not account_data.empty:
             account_data['date'] = pd.to_datetime(account_data['date'])
             account_data = account_data.sort_values(by='date', ascending=True)
-    
+        
             # Create the line plot
             fig, ax = plt.subplots(figsize=(10, 6))
-            sns.lineplot(data=account_data, x='date', y='total_followers', ax=ax)
-            ax.set_title('Total Followers Over Time', fontsize=16)
+            sns.set_style("whitegrid")  # Set a friendly grid style
+            sns.lineplot(data=account_data, x='date', y='total_followers', ax=ax, color="royalblue", linewidth=2)
+        
+            # Customize the plot
+            ax.set_title('Total Followers Over Time', fontsize=16, fontweight='bold')
             ax.set_xlabel('Date', fontsize=12)
             ax.set_ylabel('Total Followers', fontsize=12)
-            ax.grid(True)
-    
+            ax.tick_params(axis='x', rotation=45)  # Rotate x-axis labels
+            ax.grid(alpha=0.5)  # Adjust grid transparency
+        
+            # Enhance readability with larger font sizes
+            ax.title.set_fontsize(18)
+            ax.xaxis.label.set_fontsize(12)
+            ax.yaxis.label.set_fontsize(12)
+            ax.tick_params(axis='both', which='major', labelsize=10)
+        
             # Display the plot in Streamlit
-            st.pyplot(fig)
+            st.pyplot(fig))
 
 
     with col_right:
