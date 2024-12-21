@@ -93,7 +93,7 @@ def get_daily_post_counts(post_data, account_data):
 # Main function to display data and visuals
 def main():
 
-    st.title(ACCOUNT_NAME)
+    st.markdown(f"<h1 style='text-align: center;'>{ACCOUNT_NAME}</h1>", unsafe_allow_html=True)
 
     # Pull data using the function
     account_data = pull_dataframes(ACCOUNT_TABLE_ID)
