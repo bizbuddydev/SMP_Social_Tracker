@@ -139,12 +139,12 @@ def main():
 
         # Add dynamic line series 
         if account_data is not None and not account_data.empty:
-            account_data['Date'] = pd.to_datetime(account_data['Date'])
-            account_data = account_data.sort_values(by='Date', ascending=True)
+            account_data['date'] = pd.to_datetime(account_data['date'])
+            account_data = account_data.sort_values(by='date', ascending=True)
     
             # Create the line plot
             fig, ax = plt.subplots(figsize=(10, 6))
-            sns.lineplot(data=account_data, x='Date', y='total_followers', ax=ax)
+            sns.lineplot(data=account_data, x='date', y='total_followers', ax=ax)
             ax.set_title('Total Followers Over Time', fontsize=16)
             ax.set_xlabel('Date', fontsize=12)
             ax.set_ylabel('Total Followers', fontsize=12)
