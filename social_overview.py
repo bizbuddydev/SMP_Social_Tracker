@@ -99,6 +99,31 @@ def main():
     st.subheader("Post Data")
     st.write(post_data)
 
+    # Create layout with two columns
+    col1, col2 = st.columns(2)
+
+    with col1:
+        # Calculate metrics
+        if account_data is not None and not account_data.empty:
+            total_followers = account_data.iloc[-1]['Followers']  # Most recent day
+        else:
+            total_followers = 0
+
+        total_posts = len(post_data) if post_data is not None else 0
+
+        avg_reach = post_data['Reach'].mean() if post_data is not None and not post_data.empty else 0
+
+        avg_likes = post_data['Likes'].mean() if post_data is not None and not post_data.empty else 0
+
+        # Display metrics
+        st.metric(label="Total Followers", value=f"{total_followers:,}")
+        st.metric(label="Total Posts", value=f"{total_posts:,}")
+        st.metric(label="Average Reach", value=f"{avg_reach:,.0f}")
+        st.metric(label="Average Likes", value=f"{avg_likes:,.0f}")
+
+    with col2:
+        # Placeholder for other visuals or information
+        st.write("Other visualizations or information can go here.")
 
 
 # Run the app
