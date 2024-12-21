@@ -137,7 +137,7 @@ def main():
             st.metric(label="Average Likes", value=f"{avg_likes:,.0f}")
 
         # Dropdown for selecting metric
-        metric_options = ['total_followers', 'reach', 'likes_count']
+        metric_options = ['total_followers', 'reach', 'impressions']
         selected_metric = st.selectbox("Select Metric for Chart", metric_options)
 
         # Line chart for total followers over time
