@@ -20,6 +20,7 @@ def load_config(file_path="config.json"):
 config = load_config()
 
 # Set env variables
+ACCOUNT_NAME = config["ACCOUNT_NAME"]
 PROJECT_ID = config["PROJECT_ID"]
 DATASET_ID = config["DATASET_ID"]
 ACCOUNT_TABLE_ID = config["ACCOUNT_TABLE_ID"]
@@ -92,6 +93,8 @@ def get_daily_post_counts(post_data, account_data):
 # Main function to display data and visuals
 def main():
 
+    st.title(ACCOUNT_NAME)
+
     # Pull data using the function
     account_data = pull_dataframes(ACCOUNT_TABLE_ID)
     post_data = pull_dataframes(POST_TABLE_ID)
@@ -102,11 +105,11 @@ def main():
     account_data = get_daily_post_counts(post_data, account_data)
     account_data = account_data.sort_values(by='date', ascending=True)
 
-    with st.expander("Account Data"):
-        st.write(account_data)
-
-    with st.expander("Post Data"):
-        post_data
+    # Show Data if needed
+    #with st.expander("Account Data"):
+        #st.write(account_data)
+    #with st.expander("Post Data"):
+        #st.write(post_data)
 
     # Create layout with two columns
     col_left, col_right = st.columns(2)
