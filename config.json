@@ -1,5 +1,5 @@
 {
-  "account_name": "Sterling Mental Performance",
+  "ACCOUNT_NAME": "Sterling Mental Performance",
   "PROJECT_ID" : "bizbuddydemo-v1",
   "DATASET_ID": "ig_data",
   "POST_TABLE_ID": "smp_postdata",
