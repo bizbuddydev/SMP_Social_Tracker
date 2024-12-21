@@ -53,7 +53,7 @@ def pull_dataframes(table_id):
 def get_daily_post_counts(post_data, account_data):
     # Ensure created_time is in datetime format
     post_data['created_time'] = pd.to_datetime(post_data['created_time'])
-    account_data['Date'] = pd.to_datetime(account_data['Date']).dt.date
+    account_data['date'] = pd.to_datetime(account_data['Date']).dt.date
 
     # Generate the last 30 days as a date range
     today = datetime.today()
