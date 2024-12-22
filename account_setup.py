@@ -36,7 +36,6 @@ with st.form("strategy_form"):
     st.subheader("Enter Social Media Goals")
     desired_growth = st.selectbox("Desired Growth", ["Aggressive", "Moderate", "Maintain"])
     preferred_post_types = st.text_area("Preferred Post Types (e.g., videos, infographics, memes)")
-    topics_of_interest = st.text_area("Topics of Interest")
     content_frequency = st.selectbox("Content Frequency", ["Daily", "Weekly", "Monthly"])
 
     # Submit button
@@ -67,7 +66,6 @@ if submitted:
     
     - Desired Growth: {desired_growth}
     - Preferred Post Types: {preferred_post_types}
-    - Topics of Interest: {topics_of_interest}
     - Content Frequency: {content_frequency}
     
     Return the entries in JSON format for example:
