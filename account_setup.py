@@ -71,11 +71,11 @@ if submitted:
     - Content Frequency: {content_frequency}
     
     Return the entries in JSON format for example:
-    {
+    
     ”Content Plan”: “Response for entry…”,
     “**Posting Schedule”: “**“Response for entry…”,
     Next entries…
-    }"""
+    """
   
     # Call ChatGPT
     strategy = generate_strategy(user_input)
