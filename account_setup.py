@@ -5,22 +5,44 @@ from openai import OpenAI
 client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
 # Function to call ChatGPT
-def generate_strategy(user_input):
+def generate_strategy(business_details, social_media_goals):
     try:
-        response = client.Completion.create(
+        # Construct the full prompt
+        full_prompt = f"""
+        Based on the provided business details and goals, generate a strategy that includes:
+
+        1. **Content Plan**: Suggested content ideas tailored to the business's industry, target audience, and brand voice.
+        2. **Posting Schedule**: A recommended schedule for posting content, aligned with the desired growth and content frequency.
+        3. **Engagement Tips**: Specific strategies to increase audience interaction and engagement.
+        4. **Feature Utilization**: Recommendations for using Instagram features like Stories, Reels, and Highlights effectively.
+        5. **Performance Metrics**: Key performance indicators to track success and align with the business's goals.
+
+        ### Business Details:
+        {business_details}
+
+        ### Social Media Goals:
+        {social_media_goals}
+        """
+
+        # Call the OpenAI ChatGPT API
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a social media strategist specializing in Instagram."},
-                {"role": "user", "content": user_input}
+                {"role": "user", "content": full_prompt}
             ],
             max_tokens=500,
             temperature=0.7,
         )
-        return response["choices"][0]["message"]["content"]
+
+        # Extract the response content
+        answer = response.choices[0].message.content
+        return answer
+
     except Exception as e:
         return f"Error: {e}"
 
-# App title
+# Streamlit App
 st.title("Instagram Strategy Generator")
 
 # Form for user input
@@ -36,6 +58,7 @@ with st.form("strategy_form"):
     st.subheader("Enter Social Media Goals")
     desired_growth = st.selectbox("Desired Growth", ["Aggressive", "Moderate", "Maintain"])
     preferred_post_types = st.text_area("Preferred Post Types (e.g., videos, infographics, memes)")
+    topics_of_interest = st.text_area("Topics of Interest")
     content_frequency = st.selectbox("Content Frequency", ["Daily", "Weekly", "Monthly"])
 
     # Submit button
@@ -43,40 +66,25 @@ with st.form("strategy_form"):
 
 # Handle form submission
 if submitted:
-    # Compile user inputs into a prompt
-    user_input = f"""
-    You are a social media strategist specializing in Instagram. Based on the provided business details and goals, generate a strategy that includes these entries:
-
-    1. **Content Plan**: Suggested content ideas tailored to the business's industry, target audience, and brand voice.
-    2. **Posting Schedule**: A recommended schedule for posting content, aligned with the desired growth and content frequency.
-    3. **Engagement Tips**: Specific strategies to increase audience interaction and engagement.
-    4. **Feature Utilization**: Recommendations for using Instagram features like Stories, Reels, and Highlights effectively.
-    5. **Performance Metrics**: Key performance indicators to track success and align with the business's goals.
-    
-    ### Business Details:
-    
+    # Compile inputs into structured sections
+    business_details = f"""
     - Business Name: {business_name}
     - Description: {business_description}
     - Industry/Category: {industry_category}
     - Products/Services: {products_services}
     - Target Audience: {target_audience}
     - Brand Voice and Tone: {brand_voice_tone}
-    
-    ### Social Media Goals:
-    
+    """
+
+    social_media_goals = f"""
     - Desired Growth: {desired_growth}
     - Preferred Post Types: {preferred_post_types}
+    - Topics of Interest: {topics_of_interest}
     - Content Frequency: {content_frequency}
-    
-    Return the entries in JSON format for example:
-    
-    ”Content Plan”: “Response for entry…”,
-    “**Posting Schedule”: “**“Response for entry…”,
-    Next entries…
     """
-  
-    # Call ChatGPT
-    strategy = generate_strategy(user_input)
+
+    # Generate strategy
+    strategy = generate_strategy(business_details, social_media_goals)
 
     # Display the strategy
     st.subheader("Generated Strategy")
