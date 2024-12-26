@@ -41,9 +41,9 @@ def top_10_by_column(df, column):
     return df.sort_values(by=column, ascending=False).head(10)
 
 # Use the variables in your app
-account_name = config["account_name"]
-datasetid = config["datasetid"]
-tableid = config["tableid"]
+account_name = config["ACCOUNT_NAME"]
+datasetid = config["DATASET_ID"]
+tableid = config["POST_TABLE_ID"]
 
 ### Get data ###
 query = f"""
