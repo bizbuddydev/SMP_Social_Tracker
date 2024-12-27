@@ -3,10 +3,19 @@ from google.cloud import bigquery
 from google.oauth2 import service_account
 import pandas as pd
 
-# Table details
-PROJECT_ID = "bizbuddydemo-v1"
-DATASET_ID = "strategy_data"
-TABLE_ID = "smp_postideas"
+# Load the configuration file
+def load_config(file_path="config.json"):
+    with open(file_path, "r") as f:
+        return json.load(f)
+
+# Load the account configuration
+config = load_config()
+
+# Set env variables
+ACCOUNT_NAME = config["ACCOUNT_NAME"]
+PROJECT_ID = config["PROJECT_ID"]
+DATASET_ID = config["DATASET_ID"]
+IDEAS_TABLE_ID = config["DATASET_ID"]
 
 st.set_page_config(page_title="Post Scheduler", layout="wide")
 
