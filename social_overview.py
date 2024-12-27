@@ -250,7 +250,7 @@ def main():
         with coll3:
             st.metric(label="Average Reach", value=f"{avg_reach:,.2f}")
         with coll4:
-            st.metric(label="Average Posts", value=f"{avg_likes:,.2f}")
+            st.metric(label="Average Likes", value=f"{avg_likes:,.2f}")
 
 
         st.subheader("Last 7 days")
