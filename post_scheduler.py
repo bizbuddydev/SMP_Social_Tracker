@@ -3,6 +3,7 @@ from google.cloud import bigquery
 from google.oauth2 import service_account
 import pandas as pd
 import json
+from generate_post import generate_post_idea, add_post_to_bigquery
 
 # Load the configuration file
 def load_config(file_path="config.json"):
@@ -27,7 +28,6 @@ credentials = service_account.Credentials.from_service_account_info(
 
 # Initialize BigQuery client
 client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
-
 
 def fetch_post_data():
     """Fetch post data from BigQuery."""
@@ -56,6 +56,32 @@ def main():
             st.markdown(f"**Themes:** {row['themes']}")
             st.markdown(f"**Tone:** {row['tone']}")
             st.markdown(f"**Source:** {row['source']}")
+
+    # Add functionality to generate and add a post
+    if st.button("Add Post"):
+        with st.spinner("Generating and adding post..."):
+            # Load strategy data (placeholder example)
+            strategy = {
+                "content_plan": [
+                    "Testimonials from clients who have improved their performance through your services.",
+                    "Short videos or animated infographics explaining different concepts in sports psychology.",
+                    "Case studies showing how mental performance can affect sports outcomes.",
+                    "Behind-the-scenes content showing what a 1 on 1 session may look like.",
+                    "Inspirational quotes about mental resilience and strength.",
+                    "Regular Q&A's or AMA (Ask Me Anything) sessions to address common questions or misconceptions about sports psychology."
+                ],
+                "tone": ["Inspirational", "Educational", "Casual"],
+                "post_types": ["Reel", "Story", "Static Post"],
+                "past_posts_summary": """Final Summary: This Instagram account primarily focuses on mental performance coaching in sports, offering insights, strategies, and examples of successful athletes who utilize these techniques. Posts often delve into specific mental strategies like visualization, self-talk, positive affirmations, and maintaining focus on the present moment or process rather than the outcome. The account also emphasizes the importance of resilience, confidence, body language, and optimal arousal levels for peak performance. The strategists also discuss the value of reframing negative experiences as learning opportunities and the role of good sleep habits in cognitive function. Teamwork in sports is frequently highlighted, with a focus on football and volleyball. Engagement with followers is encouraged through calls to action, such as following the page or sending direct messages for additional information or inquiries about one-on-one coaching sessions."""
+            }
+
+            # Generate a post idea
+            post_df = generate_post_idea(strategy)
+
+            # Add the post to BigQuery
+            add_post_to_bigquery(post_df)
+
+        st.success("Post successfully added!")
 
 if __name__ == "__main__":
     main()
