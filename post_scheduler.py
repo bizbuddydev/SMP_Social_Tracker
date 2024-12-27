@@ -15,7 +15,7 @@ config = load_config()
 ACCOUNT_NAME = config["ACCOUNT_NAME"]
 PROJECT_ID = config["PROJECT_ID"]
 DATASET_ID = config["DATASET_ID"]
-IDEAS_TABLE_ID = config["DATASET_ID"]
+IDEAS_TABLE_ID = config["IDEAS_TABLE_ID"]
 
 st.set_page_config(page_title="Post Scheduler", layout="wide")
 
