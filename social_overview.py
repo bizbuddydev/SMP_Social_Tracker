@@ -428,7 +428,8 @@ def main():
     with col_right:
         # Placeholder for other visuals or information
         st.header("AI Analysis of recent performance")
-        st.write("- Strategic Recommendations")
+        st.write(generate_gpt_summary(bus_description, performance_summary))
+
         st.write("- Upcoming Posts")
         st.write("")
 
@@ -438,12 +439,7 @@ def main():
         
         st.header("Calendar")
         st.write("")
-
-        st.write(bus_description)
-        st.write(performance_summary)
         
-        st.write(generate_gpt_summary(bus_description, performance_summary))
-
 
 # Run the app
 if __name__ == "__main__":
