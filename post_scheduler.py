@@ -144,6 +144,25 @@ def add_post_to_bigquery(post_df):
     if job.errors:
         raise Exception(f"Failed to insert row into BigQuery: {job.errors}")
 
+# Function to delete a post idea from BigQuery
+def delete_post_by_caption(caption):
+    """
+    Delete a post idea from the smp_postideas table based on the caption.
+
+    Args:
+        caption (str): The caption of the post to delete.
+    """
+    query = f"""
+        DELETE FROM `bizbuddydemo-v1.strategy_data.smp_postideas`
+        WHERE caption = @caption
+    """
+    query_job = bq_client.query(query, job_config=bigquery.QueryJobConfig(
+        query_parameters=[
+            bigquery.ScalarQueryParameter("caption", "STRING", caption)
+        ]
+    ))
+    query_job.result()  # Wait for the query to complete
+
 
 def fetch_post_data():
     """Fetch post data from BigQuery."""
@@ -201,6 +220,13 @@ def main():
             st.markdown(f"**Themes:** {row['themes']}")
             st.markdown(f"**Tone:** {row['tone']}")
             st.markdown(f"**Source:** {row['source']}")
+            
+            if st.button("Delete Post", key=f"delete_{index}"):
+                try:
+                    delete_post_by_caption(row['caption'])
+                    st.success("Post successfully deleted!")
+                except Exception as e:
+                    st.error(f"Failed to delete post: {e}")
 
 if __name__ == "__main__":
     main()
