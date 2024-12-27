@@ -29,8 +29,10 @@ credentials = service_account.Credentials.from_service_account_info(
 # Load BQ Client
 bq_client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
 
-# Initialize the OpenAI client
-client = OpenAI(api_key=st.secrets["openai"]["api_key"])
+openai.api_key = st.secrets["openai"]["api_key"]
+
+# Initialize OpenAI client
+client = openai
 
 
 # Function to fetch the latest date and calculate the next post date
@@ -68,7 +70,7 @@ def generate_post_idea(strategy):
         "Format as a JSON object."
     )
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are a social media manager with expertise in creating engaging content."},
