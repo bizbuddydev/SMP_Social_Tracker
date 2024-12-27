@@ -482,6 +482,9 @@ def main():
                 st.markdown(f"**Themes:** {row['themes']}")
                 st.markdown(f"**Tone:** {row['tone']}")
                 st.markdown(f"**Source:** {row['source']}")
+
+        st.header("Demographic Breakdowns")
+        st.spinner("Coming shortly")
         
 
 # Run the app
