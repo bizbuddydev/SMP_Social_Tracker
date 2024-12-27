@@ -2,7 +2,7 @@ import streamlit as st
 from google.cloud import bigquery
 from google.oauth2 import service_account
 import pandas as pd
-import openai
+from openai import OpenAI
 import json
 
 st.set_page_config(page_title="Post Scheduler", layout="wide")
@@ -26,10 +26,8 @@ credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"]
 )
 
-# Initialize OpenAI API
-openai.api_key = st.secrets["openai"]["api_key"]
-
-client = openai
+# Initialize the OpenAI client
+client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
 # Initialize BigQuery client
 bq_client = bigquery.Client()
