@@ -30,13 +30,17 @@ credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"]
 )
 
+st.write("loaded credentials")
+
 # Initialize the OpenAI client
 client = OpenAI(api_key=st.secrets["openai"]["api_key"])
+
+st.write("loaded OpenAI")
 
 # Initialize BigQuery client
 bq_client = bigquery.Client()
 
-st.write("loaded clients")
+st.write("loaded BQ")
 
 # Function to fetch the latest date and calculate the next post date
 def fetch_latest_date():
