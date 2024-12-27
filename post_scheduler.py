@@ -33,7 +33,7 @@ def fetch_post_data():
     """Fetch post data from BigQuery."""
     query = f"""
         SELECT date, caption, post_type, themes, tone, source
-        FROM `{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}`
+        FROM `{PROJECT_ID}.{DATASET_ID}.{IDEAS_TABLE_ID}`
         ORDER BY date ASC
     """
     query_job = client.query(query)
