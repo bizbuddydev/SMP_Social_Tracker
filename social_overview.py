@@ -279,7 +279,7 @@ def generate_gpt_summary(static_summary, business_description):
             ]
         )
         # Extract and return the response content
-        return response['choices'][0]['message']['content'].strip()
+        return response['choices'][0].message.content
     except Exception as e:
         return f"Error generating summary: {e}"
 
