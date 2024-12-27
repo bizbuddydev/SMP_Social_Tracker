@@ -278,8 +278,9 @@ def generate_gpt_summary(static_summary, business_description):
                 {"role": "user", "content": prompt}
             ]
         )
-        # Extract and return the response content
-        return response
+        # Extract the content from the Choice object
+        content = response.choices[0].message.content
+        return content.strip()
     except Exception as e:
         return f"Error generating summary: {e}"
 
