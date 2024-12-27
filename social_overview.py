@@ -41,6 +41,15 @@ POST_TABLE_ID = config["POST_TABLE_ID"]
 ACCOUNT_DATASET_ID = config["ACCOUNT_DATASET_ID"]
 BUSINESS_TABLE_ID = config["BUSINESS_TABLE_ID"]
 
+
+# Load credentials and project ID from st.secrets
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"]
+)
+
+# Initialize BigQuery client
+client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
+
 # Get Business Description
 # Function to pull data from BigQuery
 def pull_busdescritpion(dataset_id, table_id):
@@ -63,14 +72,6 @@ def pull_busdescritpion(dataset_id, table_id):
         return None
 
 bus_description = pull_busdescritpion(ACCOUNT_DATASET_ID, BUSINESS_TABLE_ID)
-
-# Load credentials and project ID from st.secrets
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"]
-)
-
-# Initialize BigQuery client
-client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
 
 # Function to pull data from BigQuery
 def pull_dataframes(table_id):
