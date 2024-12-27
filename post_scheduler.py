@@ -104,7 +104,7 @@ def manually_add_post():
     tone = st.text_area("Tone")
     source = st.text_area("Source")
 
-    if st.button("Add Post"):
+    if st.button("Add Post", , key="manual_add_post"):
         # Create a DataFrame for the new post
         post_df = pd.DataFrame({
             "date": [date],
@@ -159,7 +159,7 @@ def main():
     st.title("Instagram Post Ideas Dashboard")
 
     # Add functionality to generate and add a post
-    if st.button("Add Post"):
+    if st.button("Add Post", key="generate_post_id"):
         with st.spinner("Generating and adding post..."):
             # Load strategy data (placeholder example)
             strategy = {
