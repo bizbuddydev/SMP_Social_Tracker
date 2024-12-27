@@ -262,7 +262,7 @@ def generate_gpt_summary(static_summary, business_description):
 
     try:
         # Call ChatGPT
-        response = openai.Completion.create(
+        response = openai.ChatCompletion.create(
             engine="text-davinci-003",  # Adjust based on your ChatGPT model
             prompt=prompt,
             max_tokens=100,
