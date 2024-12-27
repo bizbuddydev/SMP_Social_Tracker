@@ -300,6 +300,7 @@ def main():
             
             # Add vertical lines for each post date
             post_dates = pd.to_datetime(post_data['created_time']).dt.date.unique()  # Extract unique post dates
+            post_dates = [pd.Timestamp(post_date) for post_date in post_dates if post_date >= first_day]  # Filter post dates
             for post_date in post_dates:
                 ax.axvline(pd.Timestamp(post_date), color='gray', linestyle='--', alpha=0.5)
         
