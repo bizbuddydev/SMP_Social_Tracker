@@ -218,8 +218,8 @@ def main():
     l7_igmetrics, p7_igmetrics = generate_ig_metrics(time_frame, account_data, post_data)
     st.write(l7_igmetrics)
     st.write(p7_igmetrics)
-    7_perdiff = calculate_percentage_diff_df(l7_igmetrics, p7_igmetrics)
-    st.write(7_perdiff)
+    l7_perdiff = calculate_percentage_diff_df(l7_igmetrics, p7_igmetrics)
+    st.write(l7_perdiff)
 
     # Create layout with two columns
     col_left, col_right = st.columns(2)
