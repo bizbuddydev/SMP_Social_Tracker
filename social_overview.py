@@ -445,7 +445,7 @@ def main():
     with col_right:
         # Placeholder for other visuals or information
         st.header("AI Analysis of recent performance")
-        response_text = generate_gpt_summary(bus_description, performance_summary))
+        response_text = generate_gpt_summary(bus_description, performance_summary)
         bullet1, bullet2 = split_bullet_points(response_text)
         st.write(bullet1)
         st.write(bullet2)
