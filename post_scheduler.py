@@ -3,7 +3,7 @@ from google.cloud import bigquery
 from google.oauth2 import service_account
 import pandas as pd
 import json
-from generate_post import *
+#from generate_post import *
 
 # Load the configuration file
 def load_config(file_path="config.json"):
