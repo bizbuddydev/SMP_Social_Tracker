@@ -7,8 +7,6 @@ import json
 
 st.set_page_config(page_title="Post Scheduler", layout="wide")
 
-st.write("loaded packages")
-
 # Load the configuration file
 def load_config(file_path="config.json"):
     with open(file_path, "r") as f:
@@ -16,8 +14,6 @@ def load_config(file_path="config.json"):
 
 # Load the account configuration
 config = load_config()
-
-st.write("loaded config")
 
 # Set env variables
 ACCOUNT_NAME = config["ACCOUNT_NAME"]
@@ -30,16 +26,12 @@ credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"]
 )
 
-st.write("loaded credentials")
+# Load BQ Client
+bq_client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
 
 # Initialize the OpenAI client
 client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
-st.write("loaded OpenAI")
-
-bq_client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
-
-st.write("loaded BQ")
 
 # Function to fetch the latest date and calculate the next post date
 def fetch_latest_date():
