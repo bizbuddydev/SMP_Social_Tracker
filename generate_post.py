@@ -6,7 +6,7 @@ from google.cloud import bigquery
 import json
 
 # Initialize OpenAI API
-client = OpenAI(api_key=st.secrets["openai"]["api_key"])
+client = openai(api_key=st.secrets["openai"]["api_key"])
 
 # Initialize OpenAI client
 client = openai
