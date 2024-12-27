@@ -66,8 +66,8 @@ def generate_post_idea(strategy):
     """
     prompt = (
         f"Based on this social media strategy: {strategy}, generate 1 post idea. "
-        "Each idea should include the post date, caption content, post type (e.g., Reel, Story, Static Post), "
-        "themes (from the strategy), and tone. Ensure the idea aligns with the strategy and introduces a mix of concepts. "
+        "Each idea should include the post Date, caption content, post type (e.g., Reel, Story, Static Post), "
+        "themes (from the strategy), and tone. Ensure that the returned JSON object only has these columns with the exact names: "Date", "caption", "post_type", "themes", "tone", "source". Ensure the idea aligns with the strategy and introduces a mix of concepts. "
         "Format as a JSON object."
     )
 
@@ -87,8 +87,6 @@ def generate_post_idea(strategy):
     # Assign a date to the post
     idea_df["Date"] = fetch_latest_date()
 
-    st.write(idea_df)
-
     return idea_df
 
 # Function to add a row to the smp_postideas table in BigQuery
@@ -101,14 +99,13 @@ def add_post_to_bigquery(post_df):
     """
     table_id = "bizbuddydemo-v1.strategy_data.smp_postideas"
 
-    # Convert the dataframe to a dictionary
-    rows_to_insert = post_df.to_dict(orient="records")
+    # Insert the DataFrame row directly into BigQuery
+    job = bq_client.load_table_from_dataframe(post_df, table_id)
+    job.result()  # Wait for the load job to complete
 
-    # Insert the rows into BigQuery
-    errors = bq_client.insert_rows_json(table_id, rows_to_insert)
+    if job.errors:
+        raise Exception(f"Failed to insert row into BigQuery: {job.errors}")
 
-    if errors:
-        raise Exception(f"Failed to insert rows into BigQuery: {errors}")
 
 def fetch_post_data():
     """Fetch post data from BigQuery."""
