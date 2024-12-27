@@ -9,11 +9,9 @@ st.set_page_config(page_title="Post Analyzer", layout="wide")
 
 # Define links to other pages
 PAGES = {
-    "Home": "http://localhost:8501/home",
-    "Page 1": "http://localhost:8501/page1",
-    "Page 2": "http://localhost:8501/page2",
-    "Page 3": "http://localhost:8501/page3",
-    "Page 4": "http://localhost:8501/page4"
+    "Overview": "https://smp-bizbuddy-accountoverview.streamlit.app/",
+    "Posts": "ps://smp-bizbuddy-postoverview.streamlit.app",
+    "Scheduler": "https://smp-bizbuddy-postscheduler.streamlit.app/",
 }
 
 # Sidebar navigation
