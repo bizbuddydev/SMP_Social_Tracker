@@ -164,6 +164,39 @@ def generate_ig_metrics(time_frame, account_data, post_data):
 
     return current_period_df, previous_period_df
 
+def calculate_percentage_diff_df(current_df, previous_df):
+    
+    #Calculate the percentage difference between two DataFrames.
+
+    # Ensure the two DataFrames have the same structure
+    if not current_df.columns.equals(previous_df.columns):
+        raise ValueError("Both DataFrames must have the same columns.")
+
+    # Initialize an empty DataFrame for percentage differences
+    percentage_diff_df = pd.DataFrame(columns=current_df.columns)
+
+    # Calculate percentage differences for each column
+    for column in current_df.columns:
+        current_values = current_df[column]
+        previous_values = previous_df[column]
+
+        # Compute the percentage difference
+        percentage_diff = []
+        for current, previous in zip(current_values, previous_values):
+            try:
+                diff = ((current - previous) / previous) * 100
+                percentage_diff.append(round(diff, 2))  # Round to 2 decimal places
+            except ZeroDivisionError:
+                percentage_diff.append(None)  # Handle division by zero
+
+        # Add the percentage difference as a column
+        percentage_diff_df[column] = [
+            f"{value:+.2f}" if value is not None else "N/A"
+            for value in percentage_diff
+        ]
+
+    return percentage_diff_df
+
 
 # Main function to display data and visuals
 def main():
@@ -185,12 +218,8 @@ def main():
     l7_igmetrics, p7_igmetrics = generate_ig_metrics(time_frame, account_data, post_data)
     st.write(l7_igmetrics)
     st.write(p7_igmetrics)
-
-    # Show Data if needed
-    #with st.expander("Account Data"):
-        #st.write(account_data)
-    #with st.expander("Post Data"):
-        #st.write(post_data)
+    7_perdiff = calculate_percentage_diff_df(l7_igmetrics, p7_igmetrics)
+    st.write(7_perdiff)
 
     # Create layout with two columns
     col_left, col_right = st.columns(2)
@@ -198,7 +227,7 @@ def main():
     with col_left:
 
         # Columns for scorecards
-        col1, col2, col3, col4 = st.columns(4) 
+        coll1, coll2 = st.columns(2) 
         
         # Calculate metrics
         if account_data is not None and not account_data.empty:
@@ -211,14 +240,23 @@ def main():
         avg_likes = post_data['like_count'].mean() if post_data is not None and not post_data.empty else 0
 
         # Display metrics
-        with col1:
+        with coll1:
             st.metric(label="Total Followers", value=f"{total_followers:,}")
-        with col2:
+        with coll2:
             st.metric(label="Total Posts", value=f"{total_posts:,}")
-        with col3:
-            st.metric(label="Average Reach", value=f"{avg_reach:,.0f}")
-        with col4:
-            st.metric(label="Average Likes", value=f"{avg_likes:,.0f}")
+
+        st.subheader("Last 7 days")
+         # Columns for scorecards
+        coll3, coll4, coll5, coll6  = st.columns(4) 
+        
+        with coll3:
+            st.metric(label="Total Posts", value=f"{l7_igmetrics.iloc[0]["Total Posts"]:,.0f}")
+        with coll4:
+            st.metric(label="Followers Gained", value=f"{l7_igmetrics.iloc[0]["Followers Gained"]:,.0f}")
+        with coll5:
+            st.metric(label="Average Reach", value=f"{l7_igmetrics.iloc[0]["Average Reach"]:,.0f}")
+        with coll6:
+            st.metric(label="Average Likes", value=f"{l7_igmetrics.iloc[0]["Average Likes"]:,.0f}")
 
         # Dropdown for selecting metric
         metric_options = ['total_followers', 'reach', 'impressions']
