@@ -10,6 +10,8 @@ PROJECT_ID = "bizbuddydemo-v1"
 DATASET_ID = "strategy_data"
 TABLE_ID = "smp_postideas"
 
+st.set_page_config(page_title="Post Scheduler", layout="wide")
+
 
 def fetch_post_data():
     """Fetch post data from BigQuery."""
