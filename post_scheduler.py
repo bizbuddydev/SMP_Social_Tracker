@@ -37,6 +37,8 @@ client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
 st.write("loaded OpenAI")
 
+bq_client = bigquery.Client(project=bq_project)
+
 st.write("loaded BQ")
 
 # Function to fetch the latest date and calculate the next post date
@@ -118,7 +120,7 @@ def fetch_post_data():
         FROM `{PROJECT_ID}.{ACCOUNT_DATASET_ID}.{IDEAS_TABLE_ID}`
         ORDER BY date ASC
     """
-    query_job = client.query(query)
+    query_job = bq_client.query(query)
     return query_job.to_dataframe()
 
 def main():
