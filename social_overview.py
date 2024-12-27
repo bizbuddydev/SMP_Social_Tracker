@@ -277,7 +277,7 @@ def main():
             diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
             st.markdown(diff_text, unsafe_allow_html=True)
 
-        account_data.rename(columns={"total_followers": "Total Followers", "follower_count", : "Followers Gained", "reach": "Reach", "impressions": "Impressions"}, inplace=True)
+        account_data.rename(columns={"total_followers": "Total Followers", "follower_count" : "Followers Gained", "reach": "Reach", "impressions": "Impressions"}, inplace=True)
         
         # Dropdown for selecting metric
         metric_options = ['Total Followers', 'Followers Gained', 'Reach', 'Impressions']
