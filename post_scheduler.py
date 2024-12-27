@@ -12,6 +12,14 @@ TABLE_ID = "smp_postideas"
 
 st.set_page_config(page_title="Post Scheduler", layout="wide")
 
+# Load credentials and project ID from st.secrets
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"]
+)
+
+# Initialize BigQuery client
+client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
+
 
 def fetch_post_data():
     """Fetch post data from BigQuery."""
