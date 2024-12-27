@@ -429,6 +429,8 @@ def main():
 
         st.write(bus_description)
         st.write(performance_summary)
+        
+        st.write(generate_gpt_summary(bus_description, performance_summary))
 
 
 # Run the app
