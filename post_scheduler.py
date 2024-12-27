@@ -181,7 +181,7 @@ def main():
     )
 
     # Add functionality to generate and add a post
-    if st.button("Add Post", key="generate_post_id"):
+    if st.button("Add AI Generated Post", key="generate_post_id"):
         with st.spinner("Generating and adding post..."):
             # Load strategy data (placeholder example)
             strategy = {
