@@ -292,11 +292,16 @@ def main():
         if account_data is not None and not account_data.empty:
             account_data['date'] = pd.to_datetime(account_data['date'])
             account_data = account_data.sort_values(by='date', ascending=True)
-        
+            
             # Create the line plot
             fig, ax = plt.subplots(figsize=(10, 6))
             sns.set_style("whitegrid")  # Set a friendly grid style
             sns.lineplot(data=account_data, x='date', y=selected_metric, ax=ax, color="royalblue", linewidth=2)
+            
+            # Add vertical lines for each post date
+            post_dates = pd.to_datetime(post_data['created_time']).dt.date.unique()  # Extract unique post dates
+            for post_date in post_dates:
+                ax.axvline(pd.Timestamp(post_date), color='gray', linestyle='--', alpha=0.5)
         
             # Customize the plot
             ax.set_title(f'{selected_metric} Over Time', fontsize=16, fontweight='bold')
@@ -310,9 +315,9 @@ def main():
             ax.xaxis.label.set_fontsize(12)
             ax.yaxis.label.set_fontsize(12)
             ax.tick_params(axis='both', which='major', labelsize=10)
-        
-            # Display the plot in Streamlit
-            st.pyplot(fig)
+
+    # Display the plot in Streamlit
+    st.pyplot(fig)
 
 
     with col_right:
