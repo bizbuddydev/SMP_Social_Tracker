@@ -67,8 +67,6 @@ def pull_dataframes(table_id):
         return None
 
 
-
-
 def get_daily_post_counts(post_data, account_data):
     # Ensure created_time is in datetime format
     post_data['date'] = pd.to_datetime(post_data['created_time'])
@@ -103,8 +101,8 @@ def get_daily_post_counts(post_data, account_data):
 
     return merged_df
 
-def generate_ig_metrics(time_frame, account_data, post_data):
-    
+
+def generate_ig_metrics(time_frame, account_data, post_data):    
     #Generate a DataFrame of Instagram metrics for a given time frame and the previous period.
 
     # Define date ranges
@@ -182,8 +180,8 @@ def main():
 
     #Get Post Metrics
     time_frame = 7
-    l30_igmetrics = generate_ig_metrics(time_frame, account_data, post_data)
-    st.write(l30_igmetrics)
+    l7_igmetrics, p7_igmetrics = generate_ig_metrics(time_frame, account_data, post_data)
+    st.write(l7_igmetrics)
 
     # Show Data if needed
     #with st.expander("Account Data"):
