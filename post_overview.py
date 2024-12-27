@@ -7,6 +7,19 @@ import json
 
 st.set_page_config(page_title="Post Analyzer", layout="wide")
 
+# Define pages
+PAGES = {
+    "Home": "Welcome to the Home Page!",
+    "Page 1": "This is Page 1.",
+    "Page 2": "This is Page 2.",
+    "Page 3": "This is Page 3.",
+    "Page 4": "This is Page 4."
+}
+
+# Sidebar navigation
+st.sidebar.title("Navigation")
+selected_page = st.sidebar.radio("Go to", list(PAGES.keys()))
+
 # Load the configuration file
 def load_config(file_path="config.json"):
     with open(file_path, "r") as f:
