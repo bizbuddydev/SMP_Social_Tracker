@@ -261,21 +261,25 @@ def generate_gpt_summary(static_summary, business_description):
     #Generate a short performance summary using ChatGPT.
     # Create the prompt for ChatGPT
     prompt = (
-        f"Here is the business context:\n{business_description}\n\n"
-        f"Here is a summary of recent performance:\n{static_summary}\n\n"
-        f"Based on this information, generate a concise two-sentence summary of the recent performance."
+        f"Here is the business context: {business_description}\n"
+        f"Here is a summary of recent performance: {static_summary}\n"
+        "Generate a concise two-sentence summary of the recent performance."
     )
 
     try:
-        # Call ChatGPT
-        response = AI_client.chat.completions.create(
-            engine="gpt-4o-mini",  # Adjust based on your ChatGPT model
-            prompt=prompt,
-            max_tokens=100,
-            temperature=0.7
+        # Call ChatGPT using the updated syntax
+        response = openai.ChatCompletion.create(
+            model="gpt-4",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a data analyst specializing in providing actionable performance summaries."
+                },
+                {"role": "user", "content": prompt}
+            ]
         )
-        # Extract and return the response text
-        return response.choices[0].text.strip()
+        # Extract and return the response content
+        return response['choices'][0]['message']['content'].strip()
     except Exception as e:
         return f"Error generating summary: {e}"
 
