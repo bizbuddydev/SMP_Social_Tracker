@@ -118,21 +118,6 @@ def fetch_post_data():
 def main():
     st.title("Instagram Post Ideas Dashboard")
 
-    # Fetch data from BigQuery
-    posts = fetch_post_data()
-
-    # Display posts
-    st.subheader("Upcoming Posts")
-
-    for index, row in posts.iterrows():
-        with st.expander(f"{row['date']}, {row['post_type']}: {row['caption'][:50]}..."):
-            st.markdown(f"**Date:** {row['date']}")
-            st.markdown(f"**Caption:** {row['caption']}")
-            st.markdown(f"**Post Type:** {row['post_type']}")
-            st.markdown(f"**Themes:** {row['themes']}")
-            st.markdown(f"**Tone:** {row['tone']}")
-            st.markdown(f"**Source:** {row['source']}")
-
     # Add functionality to generate and add a post
     if st.button("Add Post"):
         with st.spinner("Generating and adding post..."):
@@ -158,6 +143,21 @@ def main():
             add_post_to_bigquery(post_df)
 
         st.success("Post successfully added!")
+
+    # Fetch data from BigQuery
+    posts = fetch_post_data()
+
+    # Display posts
+    st.subheader("Upcoming Posts")
+
+    for index, row in posts.iterrows():
+        with st.expander(f"{row['date']}, {row['post_type']}: {row['caption'][:50]}..."):
+            st.markdown(f"**Date:** {row['date']}")
+            st.markdown(f"**Caption:** {row['caption']}")
+            st.markdown(f"**Post Type:** {row['post_type']}")
+            st.markdown(f"**Themes:** {row['themes']}")
+            st.markdown(f"**Tone:** {row['tone']}")
+            st.markdown(f"**Source:** {row['source']}")
 
 if __name__ == "__main__":
     main()
