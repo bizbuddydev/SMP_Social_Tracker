@@ -8,9 +8,6 @@ import json
 # Initialize OpenAI API
 client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
-# Initialize OpenAI client
-client = openai
-
 # Initialize BigQuery client
 bq_client = bigquery.Client()
 
