@@ -184,7 +184,8 @@ def main():
 
         st.success("Post successfully added!")
 
-    manually_add_post()
+    with st.expander("Manually Add a Post:"):
+        manually_add_post()
 
     # Fetch data from BigQuery
     posts = fetch_post_data()
