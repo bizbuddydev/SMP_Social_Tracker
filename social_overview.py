@@ -268,7 +268,7 @@ def generate_gpt_summary(static_summary, business_description):
 
     try:
         # Call ChatGPT using the updated syntax
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {
