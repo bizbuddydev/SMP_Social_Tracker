@@ -263,7 +263,7 @@ def generate_gpt_summary(static_summary, business_description):
     prompt = (
         f"Here is the business context: {business_description}\n"
         f"Here is a summary of recent performance: {static_summary}\n"
-        "Generate a concise two-sentence summary of the recent performance."
+        "Generate a concise two-sentence summary of the recent performance. Return this summary in bullets. The first sentence should describe overal perfromance and the next should be a set of suggestions centered around the idea that more posts will enhance the account and its engagement."
     )
 
     try:
@@ -273,7 +273,7 @@ def generate_gpt_summary(static_summary, business_description):
             messages=[
                 {
                     "role": "system",
-                    "content": "You are a data analyst specializing in providing actionable performance summaries."
+                    "content": "You are a social media manager specializing in providing actionable performance summaries. Use the summary of last weeks performance compared to the previous weeks performance."
                 },
                 {"role": "user", "content": prompt}
             ]
