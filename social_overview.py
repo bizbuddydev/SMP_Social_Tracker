@@ -218,11 +218,8 @@ def main():
     #Get Post Metrics
     time_frame = 7
     l7_igmetrics, p7_igmetrics = generate_ig_metrics(time_frame, account_data, post_data)
-    st.write(l7_igmetrics)
-    st.write(p7_igmetrics)
 
     l7_perdiff = calculate_percentage_diff_df(l7_igmetrics, p7_igmetrics)
-    st.write(l7_perdiff)
 
     
     # Create layout with two columns
@@ -243,7 +240,9 @@ def main():
         avg_reach = post_data['reach'].mean() if post_data is not None and not post_data.empty else 0
         avg_likes = post_data['like_count'].mean() if post_data is not None and not post_data.empty else 0
 
+        #All Time
         # Display metrics
+        st.subheader("All Time")
         with coll1:
             st.metric(label="Total Followers", value=f"{total_followers:,}")
         with coll2:
@@ -255,12 +254,28 @@ def main():
         
         with coll3:
             st.metric(label="Total Posts", value=f"{l7_igmetrics.iloc[0]["Total Posts"]:,.0f}")
+            diff = l7_perdiff.iloc[0]["Total Posts"]
+            color = "green" if diff > 0 else "red" if diff < 0 else "gray"
+            diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
+            st.markdown(diff_text, unsafe_allow_html=True)
         with coll4:
             st.metric(label="Followers Gained", value=f"{l7_igmetrics.iloc[0]["Followers Gained"]:,.0f}")
+            diff = l7_perdiff.iloc[0]["Followers Gained"]
+            color = "green" if diff > 0 else "red" if diff < 0 else "gray"
+            diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
+            st.markdown(diff_text, unsafe_allow_html=True)
         with coll5:
             st.metric(label="Average Reach", value=f"{l7_igmetrics.iloc[0]["Average Reach"]:,.0f}")
+            diff = l7_perdiff.iloc[0]["Average Reach"]
+            color = "green" if diff > 0 else "red" if diff < 0 else "gray"
+            diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
+            st.markdown(diff_text, unsafe_allow_html=True)
         with coll6:
             st.metric(label="Average Likes", value=f"{l7_igmetrics.iloc[0]["Average Likes"]:,.0f}")
+            diff = l7_perdiff.iloc[0]["Average Likes"]
+            color = "green" if diff > 0 else "red" if diff < 0 else "gray"
+            diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
+            st.markdown(diff_text, unsafe_allow_html=True)
 
         # Dropdown for selecting metric
         metric_options = ['total_followers', 'reach', 'impressions']
