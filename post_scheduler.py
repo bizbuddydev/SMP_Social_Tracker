@@ -118,7 +118,7 @@ def manually_add_post():
         # Add the post to BigQuery
         try:
             add_post_to_bigquery(post_df)
-            st.success("Post successfully added! Reload the page to see results")
+            st.success("Post successfully added! Refresh the page to see updates.")
         except Exception as e:
             st.error(f"Failed to add post: {e}")
 
@@ -224,7 +224,7 @@ def main():
             if st.button("Delete Post", key=f"delete_{index}"):
                 try:
                     delete_post_by_caption(row['caption'])
-                    st.success("Post successfully deleted!")
+                    st.success("Post successfully deleted! Refresh the page to see updates.")
                 except Exception as e:
                     st.error(f"Failed to delete post: {e}")
 
