@@ -222,8 +222,8 @@ def main():
     st.write(p7_igmetrics)
     l7_perdiff = calculate_percentage_diff_df(l7_igmetrics, p7_igmetrics)
     st.write(l7_perdiff)
-    l7_perdiff["Like Rate"] = f"{(total_likes / total_reach * 100):.2f}%" if total_reach > 0 else "0%"
-    p7_perdiff["Like Rate"] = f"{(total_likes / total_reach * 100):.2f}%" if total_reach > 0 else "0%"
+    l7_perdiff["Like Rate"] = f"{(l7_perdiff["Total Likes"] / l7_perdiff["Total Reach"] * 100):.2f}%" if l7_perdiff["Total Reach"] > 0 else "0%"
+    p7_perdiff["Like Rate"] = f"{(p7_perdiff["Total Likes"] / p7_perdiff["Total Reach"] * 100):.2f}%" if p7_perdiff["Total Reach"] > 0 else "0%"
 
     
     # Create layout with two columns
