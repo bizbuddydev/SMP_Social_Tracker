@@ -67,6 +67,8 @@ def pull_dataframes(table_id):
         return None
 
 
+
+
 def get_daily_post_counts(post_data, account_data):
     # Ensure created_time is in datetime format
     post_data['date'] = pd.to_datetime(post_data['created_time'])
@@ -101,6 +103,67 @@ def get_daily_post_counts(post_data, account_data):
 
     return merged_df
 
+def generate_ig_metrics(time_frame, account_data, post_data):
+    
+    #Generate a DataFrame of Instagram metrics for a given time frame and the previous period.
+
+    # Define date ranges
+    today = datetime.today()
+    current_period_start = today - timedelta(days=time_frame)
+    previous_period_start = current_period_start - timedelta(days=time_frame)
+    previous_period_end = current_period_start - timedelta(days=1)
+
+    # Filter data for the current period
+    current_account_data = account_data[
+        (account_data['date'] >= current_period_start.date()) & 
+        (account_data['date'] <= today.date())
+    ]
+    current_post_data = post_data[
+        (post_data['created_time'] >= current_period_start) & 
+        (post_data['created_time'] <= today)
+    ]
+
+    # Filter data for the previous period
+    previous_account_data = account_data[
+        (account_data['date'] >= previous_period_start.date()) & 
+        (account_data['date'] <= previous_period_end.date())
+    ]
+    previous_post_data = post_data[
+        (post_data['created_time'] >= previous_period_start) & 
+        (post_data['created_time'] <= previous_period_end)
+    ]
+
+    # Calculate metrics for a given dataset
+    def calculate_metrics(account_data, post_data):
+        total_posts = len(post_data)
+        followers_gained = account_data['followers_gained'].sum() if 'followers_gained' in account_data else 0
+        total_reach = account_data['reach'].sum() if 'reach' in account_data else 0
+        total_likes = post_data['like_count'].sum() if 'like_count' in post_data else 0
+        total_comments = post_data['comments_count'].sum() if 'comments_count' in post_data else 0
+        like_rate = total_likes / total_reach if total_reach > 0 else 0
+        average_reach = total_reach / total_posts if total_posts > 0 else 0
+        average_likes = total_likes / total_posts if total_posts > 0 else 0
+
+        return {
+            'Total Posts': total_posts,
+            'Followers Gained': followers_gained,
+            'Total Reach': total_reach,
+            'Total Likes': total_likes,
+            'Total Comments': total_comments,
+            'Like Rate': like_rate,
+            'Average Reach': average_reach,
+            'Average Likes': average_likes,
+        }
+
+    # Create dataframes for current and previous periods
+    current_metrics = calculate_metrics(current_account_data, current_post_data)
+    previous_metrics = calculate_metrics(previous_account_data, previous_post_data)
+
+    current_period_df = pd.DataFrame([current_metrics])
+    previous_period_df = pd.DataFrame([previous_metrics])
+
+    return current_period_df, previous_period_df
+
 
 # Main function to display data and visuals
 def main():
@@ -116,6 +179,11 @@ def main():
     # Get daily posts
     account_data = get_daily_post_counts(post_data, account_data)
     account_data = account_data.sort_values(by='date', ascending=True)
+
+    #Get Post Metrics
+    time_frame = 7
+    l30_igmetrics = generate_ig_metrics(time_frame, account_data, post_data)
+    st.write(l30_igmetrics)
 
     # Show Data if needed
     #with st.expander("Account Data"):
