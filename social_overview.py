@@ -396,7 +396,6 @@ def main():
             post_legend = Line2D([0], [0], color='gray', linestyle='--', lw=1, label='Days with Posts')
             ax.legend(handles=[post_legend], loc='upper left')  # Adjust location as needed
 
-        
             # Customize the plot
             ax.set_title(f'{selected_metric} Over Time', fontsize=16, fontweight='bold')
             ax.set_xlabel('Date', fontsize=12)
@@ -427,6 +426,9 @@ def main():
         
         st.header("Calendar")
         st.write("")
+
+        st.write(bus_description)
+        st.write(performance_summary)
 
 
 # Run the app
