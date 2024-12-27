@@ -102,7 +102,7 @@ def manually_add_post():
     post_type = st.selectbox("Post Type", ["Reel", "Story", "Static Post"])
     themes = st.text_area("Themes (comma-separated)")
     tone = st.text_area("Tone")
-    source = st.text_area("Source")
+    source = "User"
 
     if st.button("Add Post", key="manual_add_post"):
         # Create a DataFrame for the new post
