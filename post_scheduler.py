@@ -100,7 +100,7 @@ def add_post_to_bigquery(post_df):
     table_id = "bizbuddydemo-v1.strategy_data.smp_postideas"
 
     # Convert list-type columns to JSON-serializable strings
-    for column in post_df.select_dtypes(include=["object", "list"]):
+    for column in post_df.columns:
         if post_df[column].apply(lambda x: isinstance(x, list)).any():
             post_df[column] = post_df[column].apply(json.dumps)
 
