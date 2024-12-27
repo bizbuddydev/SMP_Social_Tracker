@@ -309,7 +309,7 @@ def main():
                 ax.axvline(pd.Timestamp(post_date), color='gray', linestyle='--', alpha=0.5)
 
             # Add a single legend entry for posts
-            post_legend = Line2D([0], [0], color='gray', linestyle='--', lw=1, label='Posts')
+            post_legend = Line2D([0], [0], color='gray', linestyle='--', lw=1, label='Days with Posts')
             ax.legend(handles=[post_legend], loc='upper left')  # Adjust location as needed
 
         
