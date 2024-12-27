@@ -2,9 +2,6 @@ import streamlit as st
 from google.cloud import bigquery
 import pandas as pd
 
-# Initialize BigQuery client
-client = bigquery.Client()
-
 # Table details
 PROJECT_ID = "bizbuddydemo-v1"
 DATASET_ID = "strategy_data"
