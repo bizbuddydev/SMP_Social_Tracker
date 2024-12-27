@@ -24,7 +24,7 @@ def fetch_post_data():
     query = f"""
         SELECT date, caption, post_type, themes, tone, source
         FROM `{PROJECT_ID}.{DATASET_ID}.{TABLE_ID}`
-        ORDER BY date DESC
+        ORDER BY date ASC
     """
     query_job = client.query(query)
     return query_job.to_dataframe()
