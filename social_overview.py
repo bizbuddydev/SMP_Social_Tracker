@@ -182,6 +182,7 @@ def main():
     time_frame = 7
     l7_igmetrics, p7_igmetrics = generate_ig_metrics(time_frame, account_data, post_data)
     st.write(l7_igmetrics)
+    st.write(p7_igmetrics)
 
     # Show Data if needed
     #with st.expander("Account Data"):
