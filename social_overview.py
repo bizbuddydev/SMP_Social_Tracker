@@ -474,13 +474,13 @@ def main():
         
         st.header("Upcoming Scheduled Posts")
         for index, row in post_ideas.iterrows():
-        with st.expander(f"{row['date']}, {row['post_type']}: {row['caption'][:50]}..."):
-            st.markdown(f"**Date:** {row['date']}")
-            st.markdown(f"**Caption:** {row['caption']}")
-            st.markdown(f"**Post Type:** {row['post_type']}")
-            st.markdown(f"**Themes:** {row['themes']}")
-            st.markdown(f"**Tone:** {row['tone']}")
-            st.markdown(f"**Source:** {row['source']}")
+            with st.expander(f"{row['date']}, {row['post_type']}: {row['caption'][:50]}..."):
+                st.markdown(f"**Date:** {row['date']}")
+                st.markdown(f"**Caption:** {row['caption']}")
+                st.markdown(f"**Post Type:** {row['post_type']}")
+                st.markdown(f"**Themes:** {row['themes']}")
+                st.markdown(f"**Tone:** {row['tone']}")
+                st.markdown(f"**Source:** {row['source']}")
         
 
 # Run the app
