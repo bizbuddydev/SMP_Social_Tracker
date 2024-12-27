@@ -41,6 +41,7 @@ ACCOUNT_TABLE_ID = config["ACCOUNT_TABLE_ID"]
 POST_TABLE_ID = config["POST_TABLE_ID"]
 ACCOUNT_DATASET_ID = config["ACCOUNT_DATASET_ID"]
 BUSINESS_TABLE_ID = config["BUSINESS_TABLE_ID"]
+IDEAS_TABLE_ID = config["IDEAS_TABLE_ID"]
 
 
 # Load credentials and project ID from st.secrets
@@ -58,7 +59,6 @@ openai.api_key = st.secrets["openai"]["api_key"]
 AI_client = openai
 
 # Get Business Description
-# Function to pull data from BigQuery
 def pull_busdescritpion(dataset_id, table_id):
     
     # Build the table reference
@@ -79,6 +79,26 @@ def pull_busdescritpion(dataset_id, table_id):
         return None
 
 bus_description = pull_busdescritpion(ACCOUNT_DATASET_ID, BUSINESS_TABLE_ID)
+
+# Get Post Idea Data
+def pull_postideas(dataset_id, table_id):
+    
+    # Build the table reference
+    table_ref = f"{PROJECT_ID}.{dataset_id}.{table_id}"
+
+    # Query to fetch all data from the table
+    query = f"SELECT * FROM `{table_ref}` LIMIT 3"
+    
+    try:
+        # Execute the query
+        query_job = client.query(query)
+        result = query_job.result()
+        # Convert the result to a DataFrame
+        data = result.to_dataframe()
+        return data.iloc[0][0]
+    except Exception as e:
+        st.error(f"Error fetching data: {e}")
+        return None
 
 # Function to pull data from BigQuery
 def pull_dataframes(table_id):
@@ -325,6 +345,8 @@ def main():
     # Generate summaries
     performance_summary = generate_static_summary(l7_igmetrics, l7_perdiff)
 
+    #Get Scheduled Posts
+    post_ideas = pull_postideas(ACCOUNT_DATASET_ID, IDEA_TABLE_ID)
     
     # Create layout with two columns
     col_left, col_right = st.columns(2)
