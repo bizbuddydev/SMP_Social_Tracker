@@ -87,6 +87,8 @@ def generate_post_idea(strategy):
     # Assign a date to the post
     idea_df["Date"] = fetch_latest_date()
 
+    st.write(idea_df)
+
     return idea_df
 
 # Function to add a row to the smp_postideas table in BigQuery
