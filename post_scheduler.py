@@ -89,6 +89,39 @@ def generate_post_idea(strategy):
 
     return idea_df
 
+# Function to manually add a post idea in the Streamlit app
+def manually_add_post():
+    """
+    Allow the user to manually input data for a post idea.
+    """
+    st.subheader("Manually Add Post")
+
+    # Input fields for the post
+    date = st.date_input("Date", datetime.now())
+    caption = st.text_area("Caption")
+    post_type = st.selectbox("Post Type", ["Reel", "Story", "Static Post"])
+    themes = st.text_area("Themes (comma-separated)")
+    tone = st.text_area("Tone")
+    source = st.text_area("Source")
+
+    if st.button("Add Post"):
+        # Create a DataFrame for the new post
+        post_df = pd.DataFrame({
+            "date": [date],
+            "caption": [caption],
+            "post_type": [post_type],
+            "themes": [themes.split(",")],
+            "tone": [tone],
+            "source": [source]
+        })
+
+        # Add the post to BigQuery
+        try:
+            add_post_to_bigquery(post_df)
+            st.success("Post successfully added!")
+        except Exception as e:
+            st.error(f"Failed to add post: {e}")
+
 # Function to add a row to the smp_postideas table in BigQuery
 def add_post_to_bigquery(post_df):
     """
@@ -150,6 +183,8 @@ def main():
             add_post_to_bigquery(post_df)
 
         st.success("Post successfully added!")
+
+    manually_add_post()
 
     # Fetch data from BigQuery
     posts = fetch_post_data()
