@@ -248,9 +248,9 @@ def main():
         with coll2:
             st.metric(label="Total Posts", value=f"{total_posts:,}")
         with coll3:
-            st.metric(label="Total Followers", value=f"{avg_reach:,}")
+            st.metric(label="Average Reach", value=f"{avg_reach:,2f}")
         with coll4:
-            st.metric(label="Total Posts", value=f"{avg_likes:,}")
+            st.metric(label="Average Posts", value=f"{avg_likes:,2f}")
 
 
         st.subheader("Last 7 days")
@@ -270,13 +270,13 @@ def main():
             diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
             st.markdown(diff_text, unsafe_allow_html=True)
         with coll7:
-            st.metric(label="Average Reach", value=f"{l7_igmetrics.iloc[0]["Average Reach"]:,.0f}")
+            st.metric(label="Average Reach", value=f"{l7_igmetrics.iloc[0]["Average Reach"]:,.2f}")
             diff = l7_perdiff.iloc[0]["Average Reach"]
             color = "green" if diff > 0 else "red" if diff < 0 else "gray"
             diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
             st.markdown(diff_text, unsafe_allow_html=True)
         with coll8:
-            st.metric(label="Average Likes", value=f"{l7_igmetrics.iloc[0]["Average Likes"]:,.0f}")
+            st.metric(label="Average Likes", value=f"{l7_igmetrics.iloc[0]["Average Likes"]:,.2f}")
             diff = l7_perdiff.iloc[0]["Average Likes"]
             color = "green" if diff > 0 else "red" if diff < 0 else "gray"
             diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
