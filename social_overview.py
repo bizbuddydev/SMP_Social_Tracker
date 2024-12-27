@@ -284,6 +284,23 @@ def generate_gpt_summary(static_summary, business_description):
     except Exception as e:
         return f"Error generating summary: {e}"
 
+def split_bullet_points(response_text):
+    #Split the ChatGPT response into two strings based on bullet points.
+    
+    # Split the response on the bullet point character (•)
+    bullets = response_text.split('•')
+
+    # Filter out empty strings caused by leading/trailing whitespace
+    bullets = [bullet.strip() for bullet in bullets if bullet.strip()]
+
+    # Return the two bullet points as separate strings
+    if len(bullets) >= 2:
+        return bullets[0], bullets[1]
+    elif len(bullets) == 1:
+        return bullets[0], ""
+    else:
+        return "", ""
+
 
 # Main function to display data and visuals
 def main():
@@ -428,8 +445,10 @@ def main():
     with col_right:
         # Placeholder for other visuals or information
         st.header("AI Analysis of recent performance")
-        st.write(generate_gpt_summary(bus_description, performance_summary))
-
+        response_text = generate_gpt_summary(bus_description, performance_summary))
+        bullet1, bullet2 = split_bullet_points(response_text)
+        st.write(bullet1)
+        st.write(bullet2)
         st.write("- Upcoming Posts")
         st.write("")
 
