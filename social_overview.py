@@ -51,6 +51,12 @@ credentials = service_account.Credentials.from_service_account_info(
 # Initialize BigQuery client
 client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
 
+# OpenAI key
+openai.api_key = st.secrets["openai"]["api_key"]
+
+# Initialize OpenAI client
+AI_client = openai
+
 # Get Business Description
 # Function to pull data from BigQuery
 def pull_busdescritpion(dataset_id, table_id):
@@ -262,7 +268,7 @@ def generate_gpt_summary(static_summary, business_description):
 
     try:
         # Call ChatGPT
-        response = client.chat.completions.create(
+        response = AI_client.chat.completions.create(
             engine="gpt-4o-mini",  # Adjust based on your ChatGPT model
             prompt=prompt,
             max_tokens=100,
