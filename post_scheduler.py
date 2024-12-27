@@ -118,7 +118,7 @@ def manually_add_post():
         # Add the post to BigQuery
         try:
             add_post_to_bigquery(post_df)
-            st.success("Post successfully added!")
+            st.success("Post successfully added! Reload the page to see results")
         except Exception as e:
             st.error(f"Failed to add post: {e}")
 
