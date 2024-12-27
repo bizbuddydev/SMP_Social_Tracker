@@ -95,7 +95,7 @@ def pull_postideas(dataset_id, table_id):
         result = query_job.result()
         # Convert the result to a DataFrame
         data = result.to_dataframe()
-        return data.iloc[0][0]
+        return data
     except Exception as e:
         st.error(f"Error fetching data: {e}")
         return None
