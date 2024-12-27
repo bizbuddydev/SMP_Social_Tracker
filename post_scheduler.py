@@ -175,7 +175,10 @@ def fetch_post_data():
     return query_job.to_dataframe()
 
 def main():
-    st.title("Instagram Post Ideas Dashboard")
+    st.markdown(
+        """<h1 style='text-align: center;'>Post Scheduler and Idea Generator</h1>""",
+        unsafe_allow_html=True
+    )
 
     # Add functionality to generate and add a post
     if st.button("Add Post", key="generate_post_id"):
