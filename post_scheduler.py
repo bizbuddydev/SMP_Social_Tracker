@@ -5,6 +5,8 @@ import pandas as pd
 from openai import OpenAI
 import json
 
+st.write("loaded packages")
+
 st.set_page_config(page_title="Post Scheduler", layout="wide")
 
 # Load the configuration file
@@ -14,6 +16,8 @@ def load_config(file_path="config.json"):
 
 # Load the account configuration
 config = load_config()
+
+st.write("loaded config")
 
 # Set env variables
 ACCOUNT_NAME = config["ACCOUNT_NAME"]
@@ -31,6 +35,8 @@ client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
 # Initialize BigQuery client
 bq_client = bigquery.Client()
+
+st.write("loaded clients")
 
 # Function to fetch the latest date and calculate the next post date
 def fetch_latest_date():
