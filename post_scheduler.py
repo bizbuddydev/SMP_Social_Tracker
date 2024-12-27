@@ -2,6 +2,7 @@ import streamlit as st
 from google.cloud import bigquery
 from google.oauth2 import service_account
 import pandas as pd
+import json
 
 # Load the configuration file
 def load_config(file_path="config.json"):
