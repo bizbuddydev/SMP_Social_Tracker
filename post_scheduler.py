@@ -37,9 +37,6 @@ client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
 st.write("loaded OpenAI")
 
-# Initialize BigQuery client
-bq_client = bigquery.Client()
-
 st.write("loaded BQ")
 
 # Function to fetch the latest date and calculate the next post date
