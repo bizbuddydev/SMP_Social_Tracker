@@ -221,13 +221,13 @@ def main():
     time_frame = 7
     l7_igmetrics, p7_igmetrics = generate_ig_metrics(time_frame, account_data, post_data)
     l7_perdiff = calculate_percentage_diff_df(l7_igmetrics, p7_igmetrics)
-    st.write(l7_perdiff)
     
     # Create layout with two columns
     col_left, col_right = st.columns(2)
 
     with col_left:
 
+        st.subheader("All Time")
         # Columns for scorecards
         coll1, coll2 = st.columns(2) 
         
@@ -243,7 +243,6 @@ def main():
 
         #All Time
         # Display metrics
-        st.subheader("All Time")
         with coll1:
             st.metric(label="Total Followers", value=f"{total_followers:,}")
         with coll2:
