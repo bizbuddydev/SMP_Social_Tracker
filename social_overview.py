@@ -316,8 +316,8 @@ def main():
             ax.yaxis.label.set_fontsize(12)
             ax.tick_params(axis='both', which='major', labelsize=10)
 
-    # Display the plot in Streamlit
-    st.pyplot(fig)
+            # Display the plot in Streamlit
+            st.pyplot(fig)
 
 
     with col_right:
