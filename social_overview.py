@@ -322,6 +322,8 @@ def main():
         st.header("Calendar")
         st.write("")
 
+        st.write(account_data)
+
 
 # Run the app
 if __name__ == "__main__":
