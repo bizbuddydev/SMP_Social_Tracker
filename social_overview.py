@@ -292,6 +292,10 @@ def main():
     time_frame = 7
     l7_igmetrics, p7_igmetrics = generate_ig_metrics(time_frame, account_data, post_data)
     l7_perdiff = calculate_percentage_diff_df(l7_igmetrics, p7_igmetrics)
+
+    # Generate summaries
+    performance_summary = generate_static_summary(l7_igmetrics, l7_perdiff)
+
     
     # Create layout with two columns
     col_left, col_right = st.columns(2)
