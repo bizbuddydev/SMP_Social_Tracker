@@ -38,6 +38,31 @@ PROJECT_ID = config["PROJECT_ID"]
 DATASET_ID = config["DATASET_ID"]
 ACCOUNT_TABLE_ID = config["ACCOUNT_TABLE_ID"]
 POST_TABLE_ID = config["POST_TABLE_ID"]
+ACCOUNT_DATASET_ID = config["ACCOUNT_DATASET_ID"]
+BUSINESS_TABLE_ID = config["BUSINESS_TABLE_ID"]
+
+# Get Business Description
+# Function to pull data from BigQuery
+def pull_busdescritpion(dataset_id, table_id):
+    
+    # Build the table reference
+    table_ref = f"{PROJECT_ID}.{dataset_id}.{table_id}"
+
+    # Query to fetch all data from the table
+    query = f"SELECT 'Description of Business and Instagram Goals' FROM `{table_ref}` LIMIT 1"
+    
+    try:
+        # Execute the query
+        query_job = client.query(query)
+        result = query_job.result()
+        # Convert the result to a DataFrame
+        data = result.to_dataframe()
+        return data.iloc[0][0]
+    except Exception as e:
+        st.error(f"Error fetching data: {e}")
+        return None
+
+bus_description = pull_busdescritpion(ACCOUNT_DATASET_ID, BUSINESS_TABLE_ID)
 
 # Load credentials and project ID from st.secrets
 credentials = service_account.Credentials.from_service_account_info(
@@ -201,6 +226,50 @@ def calculate_percentage_diff_df(current_df, previous_df):
         percentage_diff_df[column] = percentage_diff
 
     return percentage_diff_df
+
+def generate_static_summary(last_period_df, percentage_diff_df):
+        
+    #Generate a static summary string from the last period data and percentage differences.
+    summary_lines = []
+
+    for column in last_period_df.columns:
+        # Get the last period value and percentage difference
+        last_period_value = last_period_df[column].iloc[0]  # Assuming one row
+        percentage_diff = percentage_diff_df[column].iloc[0]
+
+        # Format the percentage difference with a "+" for positive values
+        diff_string = f"{percentage_diff:+.2f}%" if percentage_diff is not None else "N/A"
+
+        # Create a description line
+        summary_lines.append(
+            f"{column}: {last_period_value:,} ({diff_string} from the previous period)"
+        )
+
+    # Combine all lines into a single string
+    return "\n".join(summary_lines)
+
+def generate_gpt_summary(static_summary, business_description):
+
+    #Generate a short performance summary using ChatGPT.
+    # Create the prompt for ChatGPT
+    prompt = (
+        f"Here is the business context:\n{business_description}\n\n"
+        f"Here is a summary of recent performance:\n{static_summary}\n\n"
+        f"Based on this information, generate a concise two-sentence summary of the recent performance."
+    )
+
+    try:
+        # Call ChatGPT
+        response = openai.Completion.create(
+            engine="text-davinci-003",  # Adjust based on your ChatGPT model
+            prompt=prompt,
+            max_tokens=100,
+            temperature=0.7
+        )
+        # Extract and return the response text
+        return response.choices[0].text.strip()
+    except Exception as e:
+        return f"Error generating summary: {e}"
 
 
 # Main function to display data and visuals
