@@ -11,6 +11,18 @@ import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="Social Overview", layout="wide")
 
+# Define links to other pages
+PAGES = {
+    "Overview": "https://smp-bizbuddy-accountoverview.streamlit.app/",
+    "Posts": "ps://smp-bizbuddy-postoverview.streamlit.app",
+    "Scheduler": "https://smp-bizbuddy-postscheduler.streamlit.app/",
+}
+
+# Sidebar navigation
+st.sidebar.title("Navigation")
+for page, url in PAGES.items():
+    st.sidebar.markdown(f"[**{page}**]({url})", unsafe_allow_html=True)
+
 # Load the configuration file
 def load_config(file_path="config.json"):
     with open(file_path, "r") as f:
