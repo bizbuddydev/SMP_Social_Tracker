@@ -229,7 +229,7 @@ def main():
 
         st.subheader("All Time")
         # Columns for scorecards
-        coll1, coll2 = st.columns(2) 
+        coll1, coll2, coll3, coll4 = st.columns(4) 
         
         # Calculate metrics
         if account_data is not None and not account_data.empty:
@@ -247,30 +247,35 @@ def main():
             st.metric(label="Total Followers", value=f"{total_followers:,}")
         with coll2:
             st.metric(label="Total Posts", value=f"{total_posts:,}")
+        with coll3:
+            st.metric(label="Total Followers", value=f"{avg_reach:,}")
+        with coll4:
+            st.metric(label="Total Posts", value=f"{avg_likes:,}")
+
 
         st.subheader("Last 7 days")
          # Columns for scorecards
-        coll3, coll4, coll5, coll6  = st.columns(4) 
+        coll5, coll6, coll7, coll8  = st.columns(4) 
         
-        with coll3:
-            st.metric(label="Total Posts", value=f"{l7_igmetrics.iloc[0]["Total Posts"]:,.0f}")
-            diff = l7_perdiff.iloc[0]["Total Posts"]
-            color = "green" if diff > 0 else "red" if diff < 0 else "gray"
-            diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
-            st.markdown(diff_text, unsafe_allow_html=True)
-        with coll4:
+        with coll5:
             st.metric(label="Followers Gained", value=f"{l7_igmetrics.iloc[0]["Followers Gained"]:,.0f}")
             diff = l7_perdiff.iloc[0]["Followers Gained"]
             color = "green" if diff > 0 else "red" if diff < 0 else "gray"
             diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
             st.markdown(diff_text, unsafe_allow_html=True)
-        with coll5:
+        with coll6:
+            st.metric(label="Total Posts", value=f"{l7_igmetrics.iloc[0]["Total Posts"]:,.0f}")
+            diff = l7_perdiff.iloc[0]["Total Posts"]
+            color = "green" if diff > 0 else "red" if diff < 0 else "gray"
+            diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
+            st.markdown(diff_text, unsafe_allow_html=True)
+        with coll7:
             st.metric(label="Average Reach", value=f"{l7_igmetrics.iloc[0]["Average Reach"]:,.0f}")
             diff = l7_perdiff.iloc[0]["Average Reach"]
             color = "green" if diff > 0 else "red" if diff < 0 else "gray"
             diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
             st.markdown(diff_text, unsafe_allow_html=True)
-        with coll6:
+        with coll8:
             st.metric(label="Average Likes", value=f"{l7_igmetrics.iloc[0]["Average Likes"]:,.0f}")
             diff = l7_perdiff.iloc[0]["Average Likes"]
             color = "green" if diff > 0 else "red" if diff < 0 else "gray"
