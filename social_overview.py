@@ -277,8 +277,10 @@ def main():
             diff_text = f"<i style='color:{color};'>{diff:+.2f}%</i>"
             st.markdown(diff_text, unsafe_allow_html=True)
 
+        account_data.rename(columns={"total_followers": "Total Followers", "reach": "Reach", "impressions": "Impressions"}, inplace=True)
+        
         # Dropdown for selecting metric
-        metric_options = ['total_followers', 'reach', 'impressions']
+        metric_options = ['Total Followers', 'Reach', 'Impressions']
         selected_metric = st.selectbox("Select Metric for Chart", metric_options)
 
         # Line chart for total followers over time
