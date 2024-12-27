@@ -9,11 +9,9 @@ st.set_page_config(page_title="Post Analyzer", layout="wide")
 
 # Define pages
 PAGES = {
-    "Home": "Welcome to the Home Page!",
-    "Page 1": "This is Page 1.",
-    "Page 2": "This is Page 2.",
-    "Page 3": "This is Page 3.",
-    "Page 4": "This is Page 4."
+    "Overview": "https://smp-bizbuddy-accountoverview.streamlit.app/",
+    "Posts": "https://smp-bizbuddy-postoverview.streamlit.app/",
+    "Scheduler 2": "https://smp-bizbuddy-postscheduler.streamlit.app/",
 }
 
 # Sidebar navigation
