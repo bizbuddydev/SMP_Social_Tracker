@@ -220,8 +220,6 @@ def main():
     l7_igmetrics, p7_igmetrics = generate_ig_metrics(time_frame, account_data, post_data)
     st.write(l7_igmetrics)
     st.write(p7_igmetrics)
-    l7_igmetrics["Like Rate"] = f"{(l7_igmetrics["Total Likes"] / l7_igmetrics["Total Reach"] * 100):.2f}%"
-    p7_igmetrics["Like Rate"] = f"{(p7_igmetrics["Total Likes"] / p7_igmetrics["Total Reach"] * 100):.2f}%"
 
     l7_perdiff = calculate_percentage_diff_df(l7_igmetrics, p7_igmetrics)
     st.write(l7_perdiff)
