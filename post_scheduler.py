@@ -2,6 +2,7 @@ import streamlit as st
 from google.cloud import bigquery
 from google.oauth2 import service_account
 import pandas as pd
+import openai
 import json
 
 st.set_page_config(page_title="Post Scheduler", layout="wide")
