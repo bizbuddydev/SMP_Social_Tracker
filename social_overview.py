@@ -297,6 +297,9 @@ def main():
             fig, ax = plt.subplots(figsize=(10, 6))
             sns.set_style("whitegrid")  # Set a friendly grid style
             sns.lineplot(data=account_data, x='date', y=selected_metric, ax=ax, color="royalblue", linewidth=2)
+
+            # Get the first day of account_data
+            first_day = account_data['date'].min().date()
             
             # Add vertical lines for each post date
             post_dates = pd.to_datetime(post_data['created_time']).dt.date.unique()  # Extract unique post dates
