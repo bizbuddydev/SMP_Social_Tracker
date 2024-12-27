@@ -166,7 +166,7 @@ def calculate_percentage_diff_df(current_df, previous_df):
     
     #Calculate the percentage difference between two DataFrames.
 
-        # Ensure the two DataFrames have the same structure
+    # Ensure the two DataFrames have the same structure
     if not current_df.columns.equals(previous_df.columns):
         raise ValueError("Both DataFrames must have the same columns.")
 
@@ -185,17 +185,19 @@ def calculate_percentage_diff_df(current_df, previous_df):
         # Compute the percentage difference
         percentage_diff = []
         for current, previous in zip(current_values, previous_values):
-            try:
+            if pd.isna(current) or pd.isna(previous):
+                diff = None  # Handle missing values
+            elif current == previous:
+                diff = 0  # Return 0 if the values are the same
+            elif previous == 0:
+                diff = None  # Handle division by zero (no valid percentage diff)
+            else:
                 diff = ((current - previous) / previous) * 100
-                percentage_diff.append(round(diff, 2))  # Round to 2 decimal places
-            except (ZeroDivisionError, TypeError):
-                percentage_diff.append(None)  # Handle division by zero or type errors
+                diff = round(diff, 2)  # Round to 2 decimal places
+            percentage_diff.append(diff)
 
         # Add the percentage difference as a column
-        percentage_diff_df[column] = [
-            f"{value:+.2f}" if value is not None else "N/A"
-            for value in percentage_diff
-        ]
+        percentage_diff_df[column] = percentage_diff
 
     return percentage_diff_df
 
