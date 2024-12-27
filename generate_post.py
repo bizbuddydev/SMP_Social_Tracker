@@ -1,5 +1,5 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 import pandas as pd
 from datetime import datetime, timedelta
 from google.cloud import bigquery
