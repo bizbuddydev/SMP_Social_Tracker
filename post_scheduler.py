@@ -37,7 +37,7 @@ client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
 st.write("loaded OpenAI")
 
-bq_client = bigquery.Client(project=PROJECT_ID)
+bq_client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
 
 st.write("loaded BQ")
 
