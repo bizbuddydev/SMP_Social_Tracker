@@ -307,6 +307,11 @@ def main():
             post_dates = [pd.Timestamp(post_date) for post_date in post_dates if post_date >= first_day]  # Filter post dates
             for post_date in post_dates:
                 ax.axvline(pd.Timestamp(post_date), color='gray', linestyle='--', alpha=0.5)
+
+            # Add a single legend entry for posts
+            post_legend = Line2D([0], [0], color='gray', linestyle='--', lw=1, label='Posts')
+            ax.legend(handles=[post_legend], loc='upper left')  # Adjust location as needed
+
         
             # Customize the plot
             ax.set_title(f'{selected_metric} Over Time', fontsize=16, fontweight='bold')
