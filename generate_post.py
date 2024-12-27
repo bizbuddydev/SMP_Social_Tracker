@@ -66,4 +66,23 @@ def generate_post_idea(strategy):
 
     return idea_df
 
+# Function to add a row to the smp_postideas table in BigQuery
+def add_post_to_bigquery(post_df):
+    """
+    Add a generated post idea to the smp_postideas table in BigQuery.
+
+    Args:
+        post_df (pd.DataFrame): The dataframe containing the post idea to be added.
+    """
+    table_id = "bizbuddydemo-v1.strategy_data.smp_postideas"
+
+    # Convert the dataframe to a dictionary
+    rows_to_insert = post_df.to_dict(orient="records")
+
+    # Insert the rows into BigQuery
+    errors = bq_client.insert_rows_json(table_id, rows_to_insert)
+
+    if errors:
+        raise Exception(f"Failed to insert rows into BigQuery: {errors}")
+
 # This file is referenced elsewhere, no main function needed
