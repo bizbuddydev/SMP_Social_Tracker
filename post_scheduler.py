@@ -67,7 +67,7 @@ def generate_post_idea(strategy):
     prompt = (
         f"Based on this social media strategy: {strategy}, generate 1 post idea. "
         "Each idea should include the post Date, caption content, post type (e.g., Reel, Story, Static Post), "
-        "themes (from the strategy), and tone. Ensure that the returned JSON object only has these columns with the exact names: "Date", "caption", "post_type", "themes", "tone", "source". Ensure the idea aligns with the strategy and introduces a mix of concepts. "
+        "themes (from the strategy), and tone. Ensure that the returned JSON object only has these columns with the exact names: 'Date', 'caption', 'post_type', 'themes', 'tone', 'source'. Ensure the idea aligns with the strategy and introduces a mix of concepts. "
         "Format as a JSON object."
     )
 
