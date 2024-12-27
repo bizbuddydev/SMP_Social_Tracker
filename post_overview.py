@@ -7,59 +7,19 @@ import json
 
 st.set_page_config(page_title="Post Analyzer", layout="wide")
 
-# Sidebar with links
-st.sidebar.title("Navigation")
-st.sidebar.markdown("[Home](#home-page)")
-st.sidebar.markdown("[Page 1](#page-1)")
-st.sidebar.markdown("[Page 2](#page-2)")
-st.sidebar.markdown("[Page 3](#page-3)")
-st.sidebar.markdown("[Page 4](#page-4)")
-
-# Define functions for each page
-def home_page():
-    st.markdown("## Home Page", unsafe_allow_html=True)
-    st.write("Welcome to the Home Page!")
-
-def page1():
-    st.markdown("## Page 1", unsafe_allow_html=True)
-    st.write("This is Page 1.")
-
-def page2():
-    st.markdown("## Page 2", unsafe_allow_html=True)
-    st.write("This is Page 2.")
-
-def page3():
-    st.markdown("## Page 3", unsafe_allow_html=True)
-    st.write("This is Page 3.")
-
-def page4():
-    st.markdown("## Page 4", unsafe_allow_html=True)
-    st.write("This is Page 4.")
-
-# Load the appropriate page based on hash (default is Home)
-query_params = st.experimental_get_query_params()
-page = query_params.get("page", ["home"])[0]
-
-if page == "home":
-    home_page()
-elif page == "page1":
-    page1()
-elif page == "page2":
-    page2()
-elif page == "page3":
-    page3()
-elif page == "page4":
-    page4()
-
-# Provide a way to update URL for navigation
-st.markdown("""
-<script>
-function updateURL(page) {
-    let newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + "?page=" + page;
-    window.history.pushState({ path: newURL }, '', newURL);
+# Define links to other pages
+PAGES = {
+    "Home": "http://localhost:8501/home",
+    "Page 1": "http://localhost:8501/page1",
+    "Page 2": "http://localhost:8501/page2",
+    "Page 3": "http://localhost:8501/page3",
+    "Page 4": "http://localhost:8501/page4"
 }
-</script>
-""", unsafe_allow_html=True)
+
+# Sidebar navigation
+st.sidebar.title("Navigation")
+for page, url in PAGES.items():
+    st.sidebar.markdown(f"[**{page}**]({url})", unsafe_allow_html=True)
 
 # Load the configuration file
 def load_config(file_path="config.json"):
