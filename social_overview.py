@@ -449,14 +449,8 @@ def main():
         bullet1, bullet2 = split_bullet_points(response_text)
         st.write(bullet1)
         st.write(bullet2)
-        st.write("- Upcoming Posts")
-        st.write("")
-
-
-        st.header("Demographic Breakdown")
-        st.write("")
         
-        st.header("Calendar")
+        st.header("Upcoming Scheduled Posts")
         st.write("")
         
 
