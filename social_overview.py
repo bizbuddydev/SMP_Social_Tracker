@@ -139,6 +139,8 @@ def generate_ig_metrics(time_frame, account_data, post_data):
         total_likes = post_data['like_count'].sum() if 'like_count' in post_data else 0
         total_comments = post_data['comments_count'].sum() if 'comments_count' in post_data else 0
         like_rate = total_likes / total_reach if total_reach > 0 else 0
+        like_rate = f"{(total_likes / total_reach * 100):.2f}%" if total_reach > 0 else "0%"
+
         average_reach = total_reach / total_posts if total_posts > 0 else 0
         average_likes = total_likes / total_posts if total_posts > 0 else 0
 
