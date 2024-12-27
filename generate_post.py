@@ -1,12 +1,12 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 import pandas as pd
 from datetime import datetime, timedelta
 from google.cloud import bigquery
 import json
 
-# Initialize OpenAI API
-openai.api_key = st.secrets["openai"]["api_key"]
+# Initialize the OpenAI client
+client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
 # Initialize BigQuery client
 bq_client = bigquery.Client()
