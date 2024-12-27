@@ -99,6 +99,11 @@ def add_post_to_bigquery(post_df):
     """
     table_id = "bizbuddydemo-v1.strategy_data.smp_postideas"
 
+    # Convert list-type columns to JSON-serializable strings
+    for column in post_df.select_dtypes(include=["object", "list"]):
+        if post_df[column].apply(lambda x: isinstance(x, list)).any():
+            post_df[column] = post_df[column].apply(json.dumps)
+
     # Insert the DataFrame row directly into BigQuery
     job = bq_client.load_table_from_dataframe(post_df, table_id)
     job.result()  # Wait for the load job to complete
