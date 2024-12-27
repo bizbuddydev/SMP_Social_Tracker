@@ -3,10 +3,11 @@ import openai
 import pandas as pd
 from datetime import datetime, timedelta
 from google.cloud import bigquery
-import json
 
-
+# Initialize OpenAI API
 openai.api_key = st.secrets["openai"]["api_key"]
+
+client = openai
 
 # Initialize BigQuery client
 bq_client = bigquery.Client()
