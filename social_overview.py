@@ -293,7 +293,17 @@ def main():
         if account_data is not None and not account_data.empty:
             account_data['date'] = pd.to_datetime(account_data['date'])
             account_data = account_data.sort_values(by='date', ascending=True)
-            
+
+            # Create a complete date range from the first to the last day in account_data
+            full_date_range = pd.date_range(start=account_data['date'].min(), end=account_data['date'].max())
+        
+            # Reindex account_data to include all dates in the range
+            account_data = account_data.set_index('date').reindex(full_date_range).reset_index()
+            account_data.rename(columns={'index': 'date'}, inplace=True)
+        
+            # Fill missing values for the selected metric with NaN or a default value
+            account_data[selected_metric] = account_data[selected_metric].fillna(method='ffill')  # Example: forward-fill
+                    
             # Create the line plot
             fig, ax = plt.subplots(figsize=(10, 6))
             sns.set_style("whitegrid")  # Set a friendly grid style
