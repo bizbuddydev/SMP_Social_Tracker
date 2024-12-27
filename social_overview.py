@@ -346,7 +346,7 @@ def main():
     performance_summary = generate_static_summary(l7_igmetrics, l7_perdiff)
 
     #Get Scheduled Posts
-    post_ideas = pull_postideas(ACCOUNT_DATASET_ID, IDEA_TABLE_ID)
+    post_ideas = pull_postideas(ACCOUNT_DATASET_ID, IDEAS_TABLE_ID)
     
     # Create layout with two columns
     col_left, col_right = st.columns(2)
