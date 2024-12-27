@@ -5,9 +5,9 @@ import pandas as pd
 from openai import OpenAI
 import json
 
-st.write("loaded packages")
-
 st.set_page_config(page_title="Post Scheduler", layout="wide")
+
+st.write("loaded packages")
 
 # Load the configuration file
 def load_config(file_path="config.json"):
