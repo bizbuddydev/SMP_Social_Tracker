@@ -1,12 +1,12 @@
 import streamlit as st
-from openai import OpenAI
+import openai
 import pandas as pd
 from datetime import datetime, timedelta
 from google.cloud import bigquery
 import json
 
 # Initialize OpenAI API
-client = OpenAI(api_key=st.secrets["openai"]["api_key"])
+openai.api_key = st.secrets["openai"]["api_key"]
 
 # Initialize BigQuery client
 bq_client = bigquery.Client()
@@ -46,7 +46,7 @@ def generate_post_idea(strategy):
         "Format as a JSON object."
     )
 
-    response = client.chat.completions.create(
+    response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are a social media manager with expertise in creating engaging content."},
