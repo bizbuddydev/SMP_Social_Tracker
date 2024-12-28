@@ -36,9 +36,10 @@ if "messages" not in st.session_state:
         {"role": "assistant", "content": "How can I help you today?"}
     ]
 
-# Display all previous messages
+# Display all previous messages, excluding system messages
 for msg in st.session_state.messages:
-    st.chat_message(msg["role"]).write(msg["content"])
+    if msg["role"] != "system":  # Skip displaying system messages
+        st.chat_message(msg["role"]).write(msg["content"])
 
 # Handle new user inputs
 if prompt := st.chat_input():
