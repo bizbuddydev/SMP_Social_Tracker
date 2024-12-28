@@ -18,7 +18,6 @@ for page, url in PAGES.items():
 
 st.title("💬BizBuddy Chatbot")
 st.caption("🚀 A BizBuddy chatbot that understands your business, powered by OpenAI")
-st.caption("Let's brainstorm!")
 if "messages" not in st.session_state:
     # Prepopulate the chat with a system message containing business context
     st.session_state["messages"] = [
