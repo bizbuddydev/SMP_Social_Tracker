@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import openai
 import json
 
-st.set_page_config(page_title="Post Scheduler", layout="wide")
+st.set_page_config(page_title="Post Scheduler", layout="wide", page_icon = "🗓️")
 
 # Define links to other pages
 PAGES = {
