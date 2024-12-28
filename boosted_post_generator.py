@@ -16,7 +16,7 @@ st.sidebar.title("Navigation")
 for page, url in PAGES.items():
     st.sidebar.markdown(f"[**{page}**]({url})", unsafe_allow_html=True)
 
-st.title("💬 Chatbot")
+st.title("BizBuddy Chatbot 💬")
 st.caption("🚀 A BizBuddy chatbot that understands your business, powered by OpenAI")
 st.caption("Let's brainstorm!")
 if "messages" not in st.session_state:
