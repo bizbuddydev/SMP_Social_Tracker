@@ -6,13 +6,12 @@ from datetime import datetime, timedelta
 import openai
 import json
 
-st.set_page_config(page_title="Post Scheduler", layout="wide")
-
 # Define links to other pages
 PAGES = {
     "Overview": "https://smp-bizbuddy-accountoverview.streamlit.app/",
     "Posts": "https://smp-bizbuddy-postoverview.streamlit.app",
     "Scheduler": "https://smp-bizbuddy-postscheduler.streamlit.app/",
+    "Brainstorm": "https://smp-bizbuddy-v1-brainstorm.streamlit.app/"
 }
 
 # Sidebar navigation
