@@ -6,6 +6,8 @@ from datetime import datetime, timedelta
 import openai
 import json
 
+st.set_page_config(page_title="Post Scheduler", layout="wide")
+
 # Define links to other pages
 PAGES = {
     "Overview": "https://smp-bizbuddy-accountoverview.streamlit.app/",
