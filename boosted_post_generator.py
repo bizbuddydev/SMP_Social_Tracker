@@ -16,7 +16,8 @@ for page, url in PAGES.items():
     st.sidebar.markdown(f"[**{page}**]({url})", unsafe_allow_html=True)
 
 st.title("💬 Chatbot")
-st.caption("🚀 A Streamlit chatbot powered by OpenAI")
+st.caption("🚀 A BizBuddy chatbot that understands your business, powered by OpenAI")
+st.caption("Let's brainstorm!")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
