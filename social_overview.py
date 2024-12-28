@@ -484,7 +484,7 @@ def main():
                 st.markdown(f"**Source:** {row['source']}")
 
         st.header("Demographic Breakdowns")
-        st.write("Coming shortly")
+        st.write("Coming soon...")
         
 
 # Run the app
