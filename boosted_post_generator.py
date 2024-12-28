@@ -42,11 +42,6 @@ for msg in st.session_state.messages:
 
 # Handle new user inputs
 if prompt := st.chat_input():
-    openai_api_key = st.secrets.get("openai_api_key")
-    if not openai_api_key:
-        st.info("Please add your OpenAI API key to continue.")
-        st.stop()
-
     client = OpenAI(api_key=openai_api_key)
     # Append the user's message
     st.session_state.messages.append({"role": "user", "content": prompt})
