@@ -6,5 +6,6 @@
   "POST_TABLE_ID": "smp_postdata",
   "ACCOUNT_TABLE_ID": "smp_igaccountdata",
   "IDEAS_TABLE_ID" : "smp_postideas",
-  "BUSINESS_TABLE_ID" : "smp_businesscontext"
+  "BUSINESS_TABLE_ID" : "smp_businesscontext",
+  "SUMMARY_TABLE_ID" : "summarytable"
 }
