@@ -127,10 +127,10 @@ def pull_dataframes(table_id):
 def pull_accountsummary():
     
     # Build the table reference
-    table_ref = f"{PROJECT_ID}.{ACCOUNT_DATASET_ID}.{SUMMARY_TABLE_ID} WHERE page_id = '{PAGE_ID}' ORDER BY date DESC LIMIT 1"
+    table_ref = f"{PROJECT_ID}.{ACCOUNT_DATASET_ID}.{SUMMARY_TABLE_ID}"
 
     # Query to fetch all data from the table
-    query = f"SELECT * FROM `{table_ref}` ORDER BY date"
+    query = f"SELECT * FROM `{table_ref}` WHERE page_id = '{PAGE_ID}' ORDER BY date DESC LIMIT 1"
     
     try:
         # Execute the query
