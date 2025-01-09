@@ -7,5 +7,6 @@
   "ACCOUNT_TABLE_ID": "smp_igaccountdata",
   "IDEAS_TABLE_ID" : "smp_postideas",
   "BUSINESS_TABLE_ID" : "smp_businesscontext",
-  "SUMMARY_TABLE_ID" : "summarytable"
+  "SUMMARY_TABLE_ID" : "summarytable",
+  "PAGE_ID" = "17841467554159158"
 }
