@@ -48,7 +48,7 @@ def generate_post_idea(strategy):
     )
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": "You are a social media manager with expertise in creating engaging content."},
             {"role": "user", "content": prompt}
