@@ -1,7 +1,7 @@
 from openai import OpenAI
 import streamlit as st
 
-st.set_page_config(page_title="Post Scheduler", layout="wide", page_icon = "💡")
+st.set_page_config(page_title="Post Brainstormer", layout="wide", page_icon = "💡")
 
 openai_api_key = st.secrets["openai"]["api_key"]
 
