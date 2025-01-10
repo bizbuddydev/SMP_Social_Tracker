@@ -490,7 +490,7 @@ def main():
         # Placeholder for other visuals or information
         st.header("AI Analysis of recent performance")
         account_summary_data = pull_accountsummary()
-        account_summary = account_summary_data.iloc[0, 0]
+        account_summary = account_summary_data.iloc[0][1]
         #response_text = generate_gpt_summary(bus_description, performance_summary)
         bullet1, bullet2 = split_bullet_points(account_summary)
         st.write(bullet1)
