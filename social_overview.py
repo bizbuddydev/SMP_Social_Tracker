@@ -311,7 +311,7 @@ def generate_gpt_summary(static_summary, business_description):
     try:
         # Call ChatGPT using the updated syntax
         response = AI_client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
